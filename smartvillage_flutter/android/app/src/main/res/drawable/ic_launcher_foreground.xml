@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Simple leaf emblem drawn in white so it reads on the green field -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,26 C74,40 78,66 54,84 C30,66 34,40 54,26 Z" />
+    <path
+        android:strokeColor="#1F7A4C"
+        android:strokeWidth="2.4"
+        android:pathData="M54,30 L54,82" />
+    <path
+        android:strokeColor="#1F7A4C"
+        android:strokeWidth="1.8"
+        android:pathData="M54,46 Q64,42 70,38" />
+    <path
+        android:strokeColor="#1F7A4C"
+        android:strokeWidth="1.8"
+        android:pathData="M54,58 Q44,54 38,50" />
+</vector>

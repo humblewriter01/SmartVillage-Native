@@ -1,0 +1,203 @@
+/// Splits pre-processed text into Hausa and English runs so the hybrid voice
+/// pipeline can route each run to the right engine.
+///
+/// Why this exists: the Murya Hausa model reads Hausa beautifully but ruins
+/// English brand/drug names; the Android device voice reads English cleanly but
+/// has no Hausa phonology. So `"...fesa mancozeb a gonar albasa..."` becomes:
+///
+/// ```text
+/// [Hausa]   "fesa mankozeb"      -> MuryaTtsEngine   (after loanword pass this
+///                                 becomes Hausa phonetics anyway)
+/// [English] "Emamectin benzoate" -> SystemTtsEngine
+/// [Hausa]   "a gonar albasa"     -> MuryaTtsEngine
+/// ```
+library;
+
+enum ChunkLanguage { hausa, english }
+
+class TtsChunk {
+  const TtsChunk({required this.text, required this.language});
+
+  final String text;
+  final ChunkLanguage language;
+
+  bool get isHausa => language == ChunkLanguage.hausa;
+
+  @override
+  String toString() => '${language.name}: "$text"';
+}
+
+class TtsChunker {
+  const TtsChunker._();
+
+  /// High-frequency Hausa vocabulary. Anything in this list is *never* treated
+  /// as English, so the chunker cannot accidentally hand a Hausa sentence to
+  /// the English device voice.
+  static const Set<String> hausaLexicon = <String>{
+    // function words / particles
+    'a', 'an', 'abin', 'abinda', 'abubuwa', 'ai', 'ajiya', 'akalla', 'akai',
+    'akwai', 'alama', 'alamomi', 'alamar', 'amma', 'amfani', 'amfanin', 'ana',
+    'anyi', 'asar', 'ashi', 'au', 'ayyuka', 'ba', 'baba', 'babu', 'bai', 'baka',
+    'ban', 'bana', 'bari', 'bashi', 'bayan', 'bazai', 'biyu', 'bokiti', 'ciki',
+    'cikin', 'ciwon', 'ciwo', 'cutar', 'cuta', 'cututtuka', 'cututtukan', 'da',
+    'dabbobi', 'dabba', 'daga', 'dai', 'dakin', 'dama', 'damina', 'datti',
+    'daya', 'digo', 'digiri', 'dole', 'don', 'duba', 'dubawa', 'duka', 'duk',
+    'dumi', 'fari', 'farin', 'fata', 'feshe', 'fesa', 'fito', 'fitar', 'gaba',
+    'gabaki', 'ganye', 'ganyen', 'gari', 'gaskiya', 'gida', 'girbi', 'girbin',
+    'gishiri', 'gona', 'gonar', 'gonaki', 'gwada', 'gwanin', 'habitacin',
+    'hada', 'haka', 'hannu', 'hanya', 'hanyar', 'har', 'harshe', 'hatsari',
+    'hoto', 'hoton', 'huta', 'idan', 'ido', 'idona', 'in', 'inka', 'iri',
+    'irin', 'iska', 'iya', 'iyali', 'jiki', 'jikin', 'jini', 'ka', 'kada',
+    'kafin', 'kafa', 'kai', 'kama', 'kamu', 'kan', 'kana', 'kanka', 'karin',
+    'kasa', 'kashi', 'kashe', 'kashi', 'kawai', 'kayanta', 'kaza', 'kebewa',
+    'kila', 'kina', 'koda', 'koma', 'koren', 'kore', 'kowa', 'kowane', 'ku',
+    'kuma', 'kumburi', 'kwana', 'kwanaki', 'kwaya', 'kwayoyin', 'kwari',
+    'kyau', 'kyakkyawan', 'lafiya', 'lafiyar', 'laima', 'laka', 'littafi',
+    'lokaci', 'lokacin', 'lura', 'ma', 'mabukaci', 'maganin', 'magani', 'mai',
+    'maka', 'makonni', 'mako', 'mana', 'manoma', 'manomi', 'masara', 'mataki',
+    'mata', 'matsala', 'matsalar', 'matsayi', 'muna', 'mutane', 'mutum', 'na',
+    'nan', 'nawa', 'nemi', 'neman', 'ne', 'ni', 'nisa', 'no', 'noma', 'noman',
+    'nomi', 'numfashi', 'nuna', 'ranar', 'rana', 'rani', 'rashin', 'ruwa',
+    'ruwan', 'saboda', 'saida', 'sai', 'sake', 'sakamakon', 'sannu', 'sanyi',
+    'sanyi', 'sauran', 'saurara', 'saurari', 'sauka', 'shafi', 'shanya',
+    'shayarwa', 'shi', 'shida', 'shirin', 'shuka', 'shukar', 'shuke',
+    'shuke-shuke', 'sosai', 'su', 'suka', 'suna', 'su', 'tace', 'tafasa',
+    'tafi', 'tambaya', 'tambayi', 'tare', 'tarin', 'tashi', 'taso', 'tattara',
+    'taya', 'ta', 'tabbatar', 'tace', 'tambarin', 'tambura', 'tambura',
+    'tana', 'tane', 'tare', 'tarin', 'taswira', 'tashi', 'taya', 'tayi', 'to',
+    'tsabta', 'tsafta', 'tsarin', 'tsire', 'tsuntsaye', 'tumatir', 'tuna',
+    'tura', 'tushen', 'uku', 'wani', 'wanne', 'wannan', 'wanda', 'wata',
+    'watanni', 'wata', 'waya', 'wurin', 'wuri', 'wuya', 'ya', 'yake', 'yana',
+    'yanayi', 'yanayin', 'yankin', 'yara', 'yawan', 'yi', 'yin', 'yiyuwa',
+    'yau', 'zai', 'zaka', 'zama', 'zamu', 'zazzabi', 'zuba', 'zuciya',
+    // domain nouns used across the app
+    'albasa', 'masarar', 'dawa', 'gero', 'shinkafa', 'wake', 'waken', 'rogo',
+    'doya', 'alkama', 'tumaki', 'tunkiya', 'akuya', 'awaki', 'saniya', 'shanu',
+    'rago', 'rago', 'kaji', 'kaza', 'agwagwa', 'alade', 'jaki', 'rakumi',
+    'kwai', 'kwakwalwa', 'nama', 'madara', 'nonon', 'nonon', 'tsutsa',
+    'tsutsotsi', 'kwarin', 'kwari', 'gado', 'gadon', 'kunya', 'kwararo',
+    'taki', 'takoki', 'takin', 'toka', 'kasa', 'kasar', 'laka', 'yashi',
+    'sinadaran', 'sinadari', 'ph', 'pii', 'digo', 'mai', 'daci', 'tsami',
+    'alkali', 'kwalba', 'kwalabe', 'renda', 'randa', 'jarka', 'bokiti',
+    'rijiya', 'rijiyar', 'kogi', 'korama', 'madatsar', 'hazo', 'hazonta',
+    'sama', 'ruwan', 'sha', 'shanya', 'bulala', 'magudanan', 'magudanar',
+    'kariya', 'rigakafi', 'jinya', 'kula', 'kulawa', 'bincike', 'binciken',
+    'gargadi', 'sanarwa', 'sakon', 'sako', 'taimako', 'taimakon', 'agaji',
+    'gaggawa', 'hatsari', 'hadari', 'hadarin', 'musamman', 'musamman',
+    'misali', 'saboda', 'domin', 'dalilin', 'dole', 'wajibi', 'dace',
+    'dacewa', 'inganci', 'ingantaccen', 'kyakkyawa', 'karami', 'babba',
+    'mafi', 'yawa', 'kadan', 'sosai', 'sai', 'kai', 'tsaye', 'zaune',
+    'kwance', 'tashi', 'gudu', 'zafi', 'sanyi', 'dumi', 'bushe', 'busasshen',
+    'danye', 'danyen', 'sabo', 'tsohon', 'sabon', 'tsawon', 'gajere',
+  };
+
+  /// Signals that a word is very likely English (and therefore should be read
+  /// by the device voice rather than Murya).
+  static final RegExp _englishSuffix = RegExp(
+    r'(tion|sion|ment|ness|able|ible|ance|ence|ous|ity|ical|ing|ism|ist|ive|ary|ery|ide|ine|ase|ate|ose|ole|ol|al|ic)$',
+    caseSensitive: false,
+  );
+
+  static final RegExp _englishDigraph = RegExp(
+    r'(ck|ph|wh|gh|oo|ee|ea|ou|ow|ai|ay|kn|wr|gn|mb|tch)',
+    caseSensitive: false,
+  );
+
+  static final RegExp _hausaHook = RegExp(r'[ɓɗƙƴ]');
+  static final RegExp _nonWord = RegExp(
+    r"[^A-Za-zÀ-ÖØ-öø-ÿɓƁɗƊƙƘƴƳ'’]",
+    unicode: true,
+  );
+
+  static String _core(String token) =>
+      token.replaceAll(_nonWord, '').toLowerCase();
+
+  /// Heuristic: does [word] need the English device voice?
+  static bool looksEnglish(String word) {
+    final core = _core(word);
+    if (core.isEmpty) return false;
+    if (hausaLexicon.contains(core)) return false;
+    if (_hausaHook.hasMatch(core)) return false;
+    if (core.length <= 2) return false;
+
+    var english = 0;
+    var hausa = 0;
+
+    if (_englishSuffix.hasMatch(core)) english += 2;
+    if (_englishDigraph.hasMatch(core)) english += 1;
+    if (RegExp('[xvq]').hasMatch(core)) english += 2;
+    // Long, unfamiliar tokens are far more likely to be drug/brand names.
+    if (core.length >= 9) english += 1;
+    if (core.endsWith('s') && core.length > 3) english += 1;
+    if (core.contains('-')) english += 1;
+
+    // Hausa orthography never doubles a consonant inside a stem.
+    if (RegExp(r'(bb|dd|ff|gg|kk|ll|mm|nn|pp|rr|ss|tt|zz)').hasMatch(core)) {
+      hausa -= 1;
+    }
+    // Hausa words very often end in a vowel or in -n/-r/-k.
+    if (RegExp(r'[aeiou]$').hasMatch(core)) hausa += 1;
+    if (RegExp(r'(n|r|k)$').hasMatch(core)) hausa += 1;
+    // Ina / ana / -ka / -ki style verbal endings.
+    if (RegExp(r'(na|ka|ki|mu|su|ta|ne|ce)$').hasMatch(core)) hausa += 1;
+
+    return english > hausa;
+  }
+
+  /// Splits [text] into consecutive same-language runs.
+  ///
+  /// Punctuation stays attached to the preceding word so the TTS engine keeps
+  /// its natural pauses.
+  static List<TtsChunk> split(String text) {
+    final trimmed = text.trim();
+    if (trimmed.isEmpty) return const <TtsChunk>[];
+
+    final tokens = trimmed.split(RegExp(r'\s+'));
+    final chunks = <TtsChunk>[];
+    final buffer = StringBuffer();
+    ChunkLanguage? current;
+
+    void flush() {
+      final value = buffer.toString().trim();
+      if (value.isNotEmpty && current != null) {
+        chunks.add(TtsChunk(text: value, language: current!));
+      }
+      buffer.clear();
+    }
+
+    for (final token in tokens) {
+      final core = _core(token);
+      if (core.isEmpty) {
+        // Pure punctuation/emoji leftovers stay with the current run.
+        if (buffer.isNotEmpty) buffer.write(' $token');
+        continue;
+      }
+      final language =
+          looksEnglish(token) ? ChunkLanguage.english : ChunkLanguage.hausa;
+      if (current == null) {
+        current = language;
+      } else if (language != current) {
+        flush();
+        current = language;
+      }
+      if (buffer.isNotEmpty) buffer.write(' ');
+      buffer.write(token);
+    }
+    flush();
+
+    return chunks;
+  }
+
+  /// Ratio of English words in [text] (0.0 = pure Hausa, 1.0 = pure English).
+  static double englishRatio(String text) {
+    final tokens = text.split(RegExp(r'\s+'));
+    var total = 0;
+    var english = 0;
+    for (final token in tokens) {
+      if (_core(token).isEmpty) continue;
+      total++;
+      if (looksEnglish(token)) english++;
+    }
+    return total == 0 ? 0 : english / total;
+  }
+}

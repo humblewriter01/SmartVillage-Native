@@ -1,0 +1,387 @@
+{
+  "onion_purple_blotch": {
+    "disease_id": "onion_purple_blotch",
+    "common_name": "Onion Purple Blotch",
+    "hausa_name": "Duhun Ganye mai Ruwan Hoda a Albasa",
+    "pathogen_type": "Fungal (Alternaria porri)",
+    "affected_crops": [
+      "onion",
+      "garlic",
+      "shallot"
+    ],
+    "causes": "Prolonged leaf wetness, warm humid nights (21-30°C), and overhead water splashing from rain or watering cans.",
+    "symptoms": "Sunken water-soaked lesions turning purple-brown with distinctive concentric rings; yellowing and girdling of leaf shafts.",
+    "treatments": {
+      "mild": "Remove infected leaves promptly, weed beds for air circulation, avoid evening irrigation.",
+      "moderate": "Spray Mancozeb (2g/L) or copper hydroxide. Add a wetting agent (surfactant) to stick to waxy onion leaves.",
+      "severe": "Systemic fungicide treatment (Azoxystrobin or Difenoconazole) and withhold overhead water."
+    },
+    "organic_alternative": "Spray neem seed kernel extract (NSKE 5%) or garlic-soap extract at first sign.",
+    "prevention_tips": [
+      "Practice 3-year crop rotation without onions or garlic",
+      "Use certified disease-free sets and seeds",
+      "Plant on raised ridges or beds with furrow irrigation rather than overhead sprinkling",
+      "Cure harvested bulbs in shade until necks are completely dry"
+    ]
+  },
+  "onion_thrips": {
+    "disease_id": "onion_thrips",
+    "common_name": "Onion Thrips Infestation",
+    "hausa_name": "Farin Kwari / Tsutsa a Albasa",
+    "pathogen_type": "Insect Pest (Thrips tabaci)",
+    "affected_crops": [
+      "onion",
+      "garlic",
+      "tomato"
+    ],
+    "causes": "Dry hot weather favors rapid thrips reproduction; weeds around field serve as alternative hosts.",
+    "symptoms": "Silvery white patches and streaks on leaves with minute black fecal dots; leaves curl, twist, and wither prematurely.",
+    "treatments": {
+      "mild": "Wash foliage with mild soap solution; weed around field borders.",
+      "moderate": "Spray neem oil or pyrethrin-based botanical insecticide early in the morning.",
+      "severe": "Apply registered insecticide like lambda-cyhalothrin or spinosad; ensure spray reaches inside leaf sheaths."
+    },
+    "organic_alternative": "Garlic and hot chili pepper extract spray (steep crushed garlic & chili overnight in water with soap).",
+    "prevention_tips": [
+      "Maintain adequate soil moisture — drought stress worsens thrips damage",
+      "Intercrop with companion plants like coriander or carrots",
+      "Destroy old crop residues immediately after harvest"
+    ]
+  },
+  "rice_blast": {
+    "disease_id": "rice_blast",
+    "common_name": "Rice Blast",
+    "hausa_name": "Ciwon Blasti na Shinkafa",
+    "pathogen_type": "Fungal (Magnaporthe oryzae)",
+    "affected_crops": [
+      "rice"
+    ],
+    "causes": "Spreads through airborne fungal spores favored by high humidity (>90%), warm temperatures (25-28°C), and excessive nitrogen fertilization.",
+    "symptoms": "Diamond or spindle-shaped grey lesions with dark reddish-brown margins on leaves; brown rot at the neck of the panicle.",
+    "treatments": {
+      "mild": "Remove and destroy infected leaves. Improve drainage and avoid excess urea application.",
+      "moderate": "Spray approved fungicide (e.g., Tricyclazole 75% WP) in early morning. Drain excess standing water.",
+      "severe": "Immediate fungicide treatment within 24 hours to protect remaining panicles. Alert extension workers."
+    },
+    "organic_alternative": "Spray fermented buttermilk + neem leaf extract, or Trichoderma viride seed treatment.",
+    "prevention_tips": [
+      "Use blast-resistant certified seed varieties",
+      "Avoid over-application of nitrogen/urea fertilizer",
+      "Maintain balanced plant spacing for ventilation",
+      "Practice crop sanitation and weed control"
+    ]
+  },
+  "rice_brown_spot": {
+    "disease_id": "rice_brown_spot",
+    "common_name": "Rice Brown Spot",
+    "hausa_name": "Kwayoyin Ruwan Kasa a Shinkafa",
+    "pathogen_type": "Fungal (Bipolaris oryzae)",
+    "affected_crops": [
+      "rice"
+    ],
+    "causes": "Favored by nutrient-deficient soils (especially low potassium or micronutrients), drought stress, and high humidity.",
+    "symptoms": "Circular or oval dark brown spots on leaves with light yellow halos, resembling sesame seeds.",
+    "treatments": {
+      "mild": "Apply balanced potassium and organic compost; ensure regular water level.",
+      "moderate": "Foliar spray of Mancozeb or propiconazole at manufacturer recommended rate.",
+      "severe": "Combined fungicide spray and soil nutrition correction."
+    },
+    "organic_alternative": "Neem seed kernel extract (NSKE 5%) spray.",
+    "prevention_tips": [
+      "Ensure balanced N-P-K fertilizer and micronutrients",
+      "Treat seeds before sowing",
+      "Maintain regular water management without drought shock"
+    ]
+  },
+  "rice_leaf_blight": {
+    "disease_id": "rice_leaf_blight",
+    "common_name": "Bacterial Leaf Blight",
+    "hausa_name": "Kona Ganyen Shinkafa",
+    "pathogen_type": "Bacterial (Xanthomonas oryzae)",
+    "affected_crops": [
+      "rice"
+    ],
+    "causes": "Bacterial infection spread through irrigation water, splashing rain, and typhoons/strong winds.",
+    "symptoms": "Water-soaked to yellowish stripes along leaf margins that rapidly enlarge, turn whitish-grey, and dry up.",
+    "treatments": {
+      "mild": "Drain excess field water for 3-4 days to arrest bacterial multiplication. Do not apply nitrogen.",
+      "moderate": "Spray Copper hydroxide or bactericide formulation as recommended by local extension.",
+      "severe": "Remove severely wilted plants to prevent spread across the field."
+    },
+    "organic_alternative": "Spray cow dung extract filtrate or fresh wood ash dusting.",
+    "prevention_tips": [
+      "Use resistant rice varieties",
+      "Clean irrigation canals and remove weeds hosting bacteria",
+      "Avoid top-dressing urea during active disease outbreaks"
+    ]
+  },
+  "tomato_early_blight": {
+    "disease_id": "tomato_early_blight",
+    "common_name": "Tomato Early Blight",
+    "hausa_name": "Kona Ganyen Tumatir na Farko",
+    "pathogen_type": "Fungal (Alternaria solani)",
+    "affected_crops": [
+      "tomato",
+      "potato"
+    ],
+    "causes": "Warm temperatures and alternating wet and dry periods. Overwinters on crop residues.",
+    "symptoms": "Brown spots with concentric rings (target-board appearance) beginning on lower older leaves.",
+    "treatments": {
+      "mild": "Prune infected lower foliage immediately and discard away from field. Water only at soil level.",
+      "moderate": "Apply copper-based fungicide or chlorothalonil following label directions.",
+      "severe": "Systemic fungicide rotation and aggressive pruning to open the canopy."
+    },
+    "organic_alternative": "Baking soda spray (1 tbsp per gallon) + neem oil solution.",
+    "prevention_tips": [
+      "Stake and trellis tomato plants to keep leaves off the ground",
+      "Apply mulch to prevent soil splashing onto foliage",
+      "Rotate crops 2-3 years away from solanaceous plants"
+    ]
+  },
+  "tomato_late_blight": {
+    "disease_id": "tomato_late_blight",
+    "common_name": "Tomato Late Blight",
+    "hausa_name": "Ciwon Late Blight a Tumatir",
+    "pathogen_type": "Oomycete (Phytophthora infestans)",
+    "affected_crops": [
+      "tomato",
+      "potato"
+    ],
+    "causes": "Cool, wet, and foggy weather. Spreads rapidly by airborne sporangia and wind-driven rain.",
+    "symptoms": "Irregular water-soaked greasy lesions on leaves and stems; white mildew underneath in damp weather; dark brown rot on fruit.",
+    "treatments": {
+      "mild": "Rogue out affected plants immediately. Stop overhead watering immediately.",
+      "moderate": "Apply preventive/curative copper or metalaxyl fungicide immediately.",
+      "severe": "Fast harvest of clean mature green fruits; destroy heavily infested vines."
+    },
+    "organic_alternative": "Copper sulfate + lime (Bordeaux mixture).",
+    "prevention_tips": [
+      "Avoid planting near old potato patches or cull piles",
+      "Ensure excellent row spacing and morning sun exposure",
+      "Scout daily during humid or drizzly conditions"
+    ]
+  },
+  "tomato_leaf_curl": {
+    "disease_id": "tomato_leaf_curl",
+    "common_name": "Tomato Leaf Curl Virus (TYLCV)",
+    "hausa_name": "Kankancewar Ganyen Tumatir",
+    "pathogen_type": "Viral (transmitted by Whiteflies)",
+    "affected_crops": [
+      "tomato"
+    ],
+    "causes": "Transmitted by the sweet potato whitefly (Bemisia tabaci). Not spread by tools or seed.",
+    "symptoms": "Upward curling and puckering of young leaves, yellow margins, severe stunting of plants, and flower drop.",
+    "treatments": {
+      "mild": "Uproot and bury infected plants to remove the virus source. Control whitefly populations.",
+      "moderate": "Spray insecticidal soap or neem oil to reduce whitefly vector numbers.",
+      "severe": "Remove infected plants; protect nursery beds with fine mesh insect nets."
+    },
+    "organic_alternative": "Yellow sticky traps + 2% neem oil foliar spray targeting leaf undersides.",
+    "prevention_tips": [
+      "Use TYLCV-tolerant hybrid seed varieties",
+      "Install yellow sticky cards to monitor whitefly activity",
+      "Eradicate alternative weed hosts around field margins"
+    ]
+  },
+  "potato_late_blight": {
+    "disease_id": "potato_late_blight",
+    "common_name": "Potato Late Blight",
+    "hausa_name": "Cutur Dankali Late Blight",
+    "pathogen_type": "Oomycete (Phytophthora infestans)",
+    "affected_crops": [
+      "potato",
+      "tomato"
+    ],
+    "causes": "Cool, cloudy, wet weather with high humidity.",
+    "symptoms": "Rapidly spreading dark water-soaked leaf spots, white fungal growth under leaves, tuber brown rot.",
+    "treatments": {
+      "mild": "Remove initial infected plants. Hill soil well over tubers to prevent spore wash.",
+      "moderate": "Apply contact/systemic protective fungicide on 7-day schedule.",
+      "severe": "Cut and destroy vines 2 weeks prior to harvest to prevent tuber contamination."
+    },
+    "organic_alternative": "Copper-based organic sprays and bio-fungicides.",
+    "prevention_tips": [
+      "Plant only certified disease-free seed tubers",
+      "Ensure high hilling to shield developing tubers from rain-washed spores",
+      "Destroy volunteer potato plants and cull piles"
+    ]
+  },
+  "potato_black_scurf": {
+    "disease_id": "potato_black_scurf",
+    "common_name": "Potato Black Scurf / Rhizoctonia",
+    "hausa_name": "Bakin Tabo a Dankali",
+    "pathogen_type": "Fungal (Rhizoctonia solani)",
+    "affected_crops": [
+      "potato"
+    ],
+    "causes": "Soil-borne and tuber-borne fungus thriving in cold, wet soils at planting.",
+    "symptoms": "Hard, irregular black crusts on tuber skins that do not wash off; stem cankers and stunted shoots.",
+    "treatments": {
+      "mild": "Harvest tubers as soon as skin sets to reduce scurf accumulation.",
+      "moderate": "Treat seed tubers with approved fungicide before planting.",
+      "severe": "Do not replant saved tubers showing black scurf."
+    },
+    "organic_alternative": "Seed tuber dip in Trichoderma suspension.",
+    "prevention_tips": [
+      "Plant tubers in warm, well-aerated soil",
+      "Practice 3-year crop rotation with non-host crops like cereals",
+      "Thoroughly wash and dry storage areas"
+    ]
+  },
+  "maize_leaf_spot": {
+    "disease_id": "maize_leaf_spot",
+    "common_name": "Maize Gray Leaf Spot",
+    "hausa_name": "Cutar Tabo a Masara",
+    "pathogen_type": "Fungal (Cercospora zeae-maydis)",
+    "affected_crops": [
+      "maize"
+    ],
+    "causes": "Thrives in warm, humid conditions with extended dew on leaves and minimum tillage where residues remain.",
+    "symptoms": "Rectangular tan-to-gray spots bounded by leaf veins; lesions expand and merge, scorching the leaf.",
+    "treatments": {
+      "mild": "Scout upper leaves near the ear leaf. Remove lower diseased leaves in smallholder plots.",
+      "moderate": "Apply registered triazole or strobilurin fungicide if lesions threaten the ear leaf.",
+      "severe": "Plan early harvest if grain is mature; clear stover after harvest."
+    },
+    "organic_alternative": "Foliar spray with fermented compost tea or bio-control agents.",
+    "prevention_tips": [
+      "Plant resistant maize hybrids recommended for your ecological zone",
+      "Rotate maize with legumes (cowpea, soybean, groundnut)",
+      "Manage residue through tillage or livestock grazing"
+    ]
+  },
+  "maize_rust": {
+    "disease_id": "maize_rust",
+    "common_name": "Maize Common Rust",
+    "hausa_name": "Karin Tsatsa a Masara",
+    "pathogen_type": "Fungal (Puccinia sorghi)",
+    "affected_crops": [
+      "maize"
+    ],
+    "causes": "Airborne spores carried on winds, favored by cool to moderate temperatures and high humidity.",
+    "symptoms": "Small, powdery golden-brown to cinnamon-brown pustules scattered over both leaf surfaces.",
+    "treatments": {
+      "mild": "Usually does not cause severe yield loss on mature crops; monitor progression.",
+      "moderate": "Fungicide spray if rust reaches top canopy before tassel stage.",
+      "severe": "Document damage for farm records; select resistant seed for next season."
+    },
+    "organic_alternative": "Sulfur dust or neem-based foliar spray.",
+    "prevention_tips": [
+      "Plant rust-resistant certified hybrid maize",
+      "Plant early in the season to escape peak spore dispersal",
+      "Maintain balanced soil fertility"
+    ]
+  },
+  "wheat_rust": {
+    "disease_id": "wheat_rust",
+    "common_name": "Wheat Rust (Stripe / Leaf / Stem)",
+    "hausa_name": "Tsatsa a Alkama",
+    "pathogen_type": "Fungal (Puccinia species)",
+    "affected_crops": [
+      "wheat"
+    ],
+    "causes": "Wind-borne fungal spores travelling long distances under favorable moisture and temperature.",
+    "symptoms": "Yellow, orange, or reddish pustules in stripes or patches on leaves and stems.",
+    "treatments": {
+      "mild": "Scout weekly. Apply protectant fungicide if detected before heading stage.",
+      "moderate": "Apply systemic triazole fungicide per label instructions.",
+      "severe": "Spray entire field immediately to halt sporulation."
+    },
+    "organic_alternative": "Seed priming and bio-fungicides.",
+    "prevention_tips": [
+      "Always sow rust-resistant varieties",
+      "Eradicate alternative barberry/grass weed hosts",
+      "Coordinate with regional agricultural extension warnings"
+    ]
+  },
+  "wheat_powdery_mildew": {
+    "disease_id": "wheat_powdery_mildew",
+    "common_name": "Wheat Powdery Mildew",
+    "hausa_name": "Farin Foda a Alkama",
+    "pathogen_type": "Fungal (Blumeria graminis)",
+    "affected_crops": [
+      "wheat"
+    ],
+    "causes": "Cool, humid weather and dense crop stands with high nitrogen levels.",
+    "symptoms": "White fluffy powdery patches on upper leaf surfaces that turn greyish-brown with tiny black specks.",
+    "treatments": {
+      "mild": "Avoid further nitrogen applications. Open canopy airflow.",
+      "moderate": "Spray sulfur or triazole fungicide.",
+      "severe": "Protect the flag leaf with curative fungicide spray."
+    },
+    "organic_alternative": "Dilute milk spray (1:9 with water) or potassium bicarbonate spray.",
+    "prevention_tips": [
+      "Avoid high seeding density",
+      "Balance nitrogen with adequate potassium and phosphorus",
+      "Select resistant cultivars"
+    ]
+  },
+  "cotton_bollworm": {
+    "disease_id": "cotton_bollworm",
+    "common_name": "Cotton Bollworm Damage",
+    "hausa_name": "Tsutsar Auduga",
+    "pathogen_type": "Insect Pest (Helicoverpa armigera)",
+    "affected_crops": [
+      "cotton",
+      "maize",
+      "tomato"
+    ],
+    "causes": "Lepidopteran pest larvae boring into buds, squares, and developing bolls.",
+    "symptoms": "Holes bored into squares and bolls, caterpillar frass around entrance holes, flared squares and fallen bolls.",
+    "treatments": {
+      "mild": "Hand-pick visible caterpillars in small plots; install bird perches.",
+      "moderate": "Apply Bacillus thuringiensis (Bt) or neem-based bio-pesticide.",
+      "severe": "Apply selective insecticide when pest threshold exceeds 1 larva per 5 plants."
+    },
+    "organic_alternative": "Bacillus thuringiensis (Bt) spray or Nucleopolyhedrovirus (NPV).",
+    "prevention_tips": [
+      "Plant trap crops like marigold or maize around cotton field border",
+      "Install pheromone traps to monitor adult moth flight",
+      "Avoid broad-spectrum sprays that kill natural predatory wasps and spiders"
+    ]
+  },
+  "cotton_leaf_curl": {
+    "disease_id": "cotton_leaf_curl",
+    "common_name": "Cotton Leaf Curl Virus (CLCuV)",
+    "hausa_name": "Kankancewar Ganyen Auduga",
+    "pathogen_type": "Viral (Begomovirus)",
+    "affected_crops": [
+      "cotton"
+    ],
+    "causes": "Transmitted by whiteflies (Bemisia tabaci).",
+    "symptoms": "Upward or downward leaf curling, vein thickening, small cup-shaped leaf outgrowths (enations) under leaves.",
+    "treatments": {
+      "mild": "Rogue out and destroy infected young plants; control whitefly vector.",
+      "moderate": "Spray systemic insecticide for whitefly management.",
+      "severe": "Do not save seed from affected plots."
+    },
+    "organic_alternative": "Neem seed kernel extract (NSKE 5%) + yellow sticky traps.",
+    "prevention_tips": [
+      "Grow CLCuV-resistant cotton varieties",
+      "Clean weed hosts (such as Abutilon, Parthenium) around fields",
+      "Avoid late sowing which exposes seedlings to high whitefly populations"
+    ]
+  },
+  "healthy_leaf": {
+    "disease_id": "healthy_leaf",
+    "common_name": "Healthy Crop Leaf",
+    "hausa_name": "Ganye Mai Lafiya",
+    "pathogen_type": "None (Healthy)",
+    "affected_crops": [
+      "all crops"
+    ],
+    "causes": "Proper soil nutrition, adequate moisture, balanced sunlight, and effective pest management.",
+    "symptoms": "Vibrant uniform green coloration, smooth texture, intact leaf margins without spots or wilting.",
+    "treatments": {
+      "mild": "No treatment needed. Continue good agricultural practices.",
+      "moderate": "Maintain routine field scouting and balanced fertilization.",
+      "severe": "Maintain clean field perimeter and good water drainage."
+    },
+    "organic_alternative": "Regular application of well-decomposed farmyard manure or vermicompost.",
+    "prevention_tips": [
+      "Follow integrated pest management protocols",
+      "Scout fields weekly during cool morning hours",
+      "Maintain records of planting, weather, and crop stages"
+    ]
+  }
+}

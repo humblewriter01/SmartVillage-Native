@@ -1,0 +1,1034 @@
+[
+  {
+    "id": "newcastle_chicken",
+    "animalId": "chicken",
+    "name": "Newcastle Disease",
+    "hausa_name": "Ciwon Samore / Bakon Kaza",
+    "keySymptoms": [
+      "Twisted neck / neurological signs",
+      "Gasping & rattling breathing",
+      "Greenish or bloody diarrhea",
+      "Sudden death in flock",
+      "Drop in egg production"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Twisted neck / neurological signs",
+        "weight": 3
+      },
+      {
+        "symptom": "Gasping & rattling breathing",
+        "weight": 2
+      },
+      {
+        "symptom": "Greenish or bloody diarrhea",
+        "weight": 2
+      },
+      {
+        "symptom": "Sudden death in flock",
+        "weight": 2
+      },
+      {
+        "symptom": "Drop in egg production",
+        "weight": 1
+      }
+    ],
+    "causes": "Paramyxovirus type 1 spread rapidly through air, respiratory droplets, water, and infected droppings.",
+    "causes_hausa": "Kwayar cutar virus mai saurin yaduwa ta iska, ruwa da kashin kaji.",
+    "treatment": "No antiviral cure. Immediately isolate flock; provide oral electrolytes, multivitamins, and broad-spectrum antibiotics to prevent secondary bacterial infections.",
+    "treatment_hausa": "Babu maganin virus kai tsaye. A ware su nan take; a ba su sinadarin bitamin da maganin bakteriya a ruwan sha.",
+    "prevention": "Vaccinate all chicks with Newcastle LaSota or thermostable I-2 vaccine every 3 months. Strictly quarantine new birds for 14 days.",
+    "prevention_hausa": "Yi allurar rigakafin LaSota ko I-2 kowanne wata 3. Ware sababbin kaji na kwanaki 14 kafin hada su.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "coccidiosis_chicken",
+    "animalId": "chicken",
+    "name": "Coccidiosis",
+    "hausa_name": "Gudawar Jini a Kaji",
+    "keySymptoms": [
+      "Greenish or bloody diarrhea",
+      "Sudden death in flock",
+      "Drop in egg production"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Greenish or bloody diarrhea",
+        "weight": 3
+      },
+      {
+        "symptom": "Sudden death in flock",
+        "weight": 2
+      },
+      {
+        "symptom": "Drop in egg production",
+        "weight": 1
+      }
+    ],
+    "causes": "Eimeria protozoan parasites multiplying in wet, warm floor litter, contaminated drinkers, and feed troughs.",
+    "causes_hausa": "Kwayoyin cutar protozoa a cikin jika da dattin ƙasan ɗakin kaji.",
+    "treatment": "Administer Amprolium, Toltrazuril, or Sulphadimidine in clean drinking water for 3 to 5 consecutive days.",
+    "treatment_hausa": "A zuba maganin Amprolium ko Sulphadimidine a ruwan sha mai tsabta na kwanaki 3 zuwa 5.",
+    "prevention": "Keep wood shavings/litter dry and well-ventilated; elevate drinkers off the floor so droppings cannot enter.",
+    "prevention_hausa": "Kiyaye ƙasar ɗaki a bushe; ɗaga bokitin ruwa sama don kashi kada ya shiga.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "fowl_pox_chicken",
+    "animalId": "chicken",
+    "name": "Fowl Pox",
+    "hausa_name": "Kambori / Kurajen Zanko",
+    "keySymptoms": [
+      "Warty scabs on comb & wattle",
+      "Swollen head & eyes with discharge",
+      "Drop in egg production"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Warty scabs on comb & wattle",
+        "weight": 3
+      },
+      {
+        "symptom": "Swollen head & eyes with discharge",
+        "weight": 2
+      },
+      {
+        "symptom": "Drop in egg production",
+        "weight": 1
+      }
+    ],
+    "causes": "Avipoxvirus transmitted mechanically by mosquitoes and biting insects or through scratches and skin abrasions.",
+    "causes_hausa": "Kwayar cutar virus da sauro da kwari ke yadawa ta hanyar cizon kaji.",
+    "treatment": "Gently dab dry scabs with mild iodine solution or palm oil; administer oxytetracycline in water to curb eye infections.",
+    "treatment_hausa": "A shafa man ja ko iodine a kan kurajen a hankali; a ba su maganin ciwon ido da bitamin a ruwa.",
+    "prevention": "Wing-web stick vaccination at 6 to 8 weeks of age; control mosquito breeding sites around the poultry run.",
+    "prevention_hausa": "Allurar rigakafin kambori a fuka-fuki a makonni 6-8; zubar da kwarurukan ruwa don hana sauro.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "crd_chicken",
+    "animalId": "chicken",
+    "name": "Chronic Respiratory Disease (CRD) / Infectious Coryza",
+    "hausa_name": "Ciwon Huhu da Majinar Kai a Kaji (CRD)",
+    "keySymptoms": [
+      "Swollen head & eyes with discharge",
+      "Gasping & rattling breathing",
+      "Drop in egg production"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Swollen head & eyes with discharge",
+        "weight": 3
+      },
+      {
+        "symptom": "Gasping & rattling breathing",
+        "weight": 2
+      },
+      {
+        "symptom": "Drop in egg production",
+        "weight": 1
+      }
+    ],
+    "causes": "Mycoplasma gallisepticum and Avibacterium paragallinarum triggered by poor ventilation, high ammonia, and dust.",
+    "causes_hausa": "Kwayar bakteriya da rashin iska ko kura a dakin kaji ke haddasawa.",
+    "treatment": "Administer Tylosin, Enrofloxacin, or Doxycycline water-soluble powder for 5 consecutive days.",
+    "treatment_hausa": "A ba su maganin Tylosin ko Enrofloxacin a ruwan sha mai kyau na kwanaki 5.",
+    "prevention": "Ensure cross-ventilation in poultry pen; avoid overcrowding; regularly clean dust and droppings.",
+    "prevention_hausa": "Bada iska mai kyau a garke; rage cunkoso; kiyaye tsabtar dakin kaji.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "ppr_goat",
+    "animalId": "goat",
+    "name": "Peste des Petits Ruminants (PPR)",
+    "hausa_name": "Ciwon Huhu da Gudawar Awaki (PPR)",
+    "keySymptoms": [
+      "Sores & ulcers around mouth",
+      "High fever & nasal discharge",
+      "Foul watery diarrhea"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Sores & ulcers around mouth",
+        "weight": 3
+      },
+      {
+        "symptom": "High fever & nasal discharge",
+        "weight": 2
+      },
+      {
+        "symptom": "Foul watery diarrhea",
+        "weight": 2
+      }
+    ],
+    "causes": "Small ruminant morbillivirus spread via direct contact, sneeze aerosol, and shared feed/water troughs.",
+    "causes_hausa": "Kwayar cutar virus mai matuƙar hadari dake yaduwa ta numfashi, miyau da kwano.",
+    "treatment": "Isolate immediately! Administer long-acting oxytetracycline for secondary infections, multivitamin injections, and oral rehydration salt solution.",
+    "treatment_hausa": "Ware su nan take! A ba su allurar Oxytetracycline, sinadarin bitamin da ruwan gishiri da sukari (ORS).",
+    "prevention": "Annual PPR vaccination of all goats older than 3 months. Quarantine market-purchased animals for 21 days.",
+    "prevention_hausa": "Allurar rigakafin PPR sau ɗaya a shekara. Tsare sabuwar akuya ta kasuwa na kwanaki 21 kafin hadawa.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "foot_rot_goat",
+    "animalId": "goat",
+    "name": "Foot Rot",
+    "hausa_name": "Rubewar Kofaton Dabbobi",
+    "keySymptoms": [
+      "Severe limping & foul hoof smell",
+      "High fever & nasal discharge"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Severe limping & foul hoof smell",
+        "weight": 3
+      },
+      {
+        "symptom": "High fever & nasal discharge",
+        "weight": 1
+      }
+    ],
+    "causes": "Dichelobacter nodosus and Fusobacterium necrophorum proliferating in wet, muddy, waterlogged rainy season pens.",
+    "causes_hausa": "Kwayoyin bakteriya dake zama a laka da ruwan ɗanyen garken dabbobi a damina.",
+    "treatment": "Pare overgrown hoof horn with clean shears; bathe feet in 10% zinc sulfate or copper sulfate solution; apply antiseptic antibiotic spray.",
+    "treatment_hausa": "Yanke kofaton da ya ruɓe da almakashin kofato; tsoma ƙafar a ruwan maganin Zinc Sulfate ko tagulla.",
+    "prevention": "Construct raised wooden slatted floors or spread dry wood ash and gravel in pen entrances.",
+    "prevention_hausa": "Gina dandamali mai bushewa; sanya toka ko yashi a ƙofar shiga garken awaki.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "bloat_goat",
+    "animalId": "goat",
+    "name": "Rumen Bloat",
+    "hausa_name": "Kumburin Ciki mai Hadari (Tumbin Iska)",
+    "keySymptoms": [
+      "Swollen belly & gasping (bloat)",
+      "Foul watery diarrhea"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Swollen belly & gasping (bloat)",
+        "weight": 3
+      },
+      {
+        "symptom": "Foul watery diarrhea",
+        "weight": 1
+      }
+    ],
+    "causes": "Excessive fermentation gases trapping foam after rapid ingestion of wet clover, young legumes, or moldy cereal waste.",
+    "causes_hausa": "Tarin iska a ciki sakamakon cin danyen ganyen wake da safe ko hatsi mai rubewa.",
+    "treatment": "Drench orally with 100-150 ml vegetable cooking oil or mineral oil. Keep goat standing upright and walk gently; do not allow to lie flat.",
+    "treatment_hausa": "A shayar da ita cokali 4 na man girki (man gyada ko waken soya). Kada a bar ta ta kwanta.",
+    "prevention": "Feed dry hay or straw before releasing livestock onto lush morning dew pastures.",
+    "prevention_hausa": "Ba su busasshiyar ciyawa kafin su fita kiwo a kan danyen makiyaya mai raɓa.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "mastitis_goat",
+    "animalId": "goat",
+    "name": "Caprine Mastitis",
+    "hausa_name": "Ciwon Nono a Awaki (Mastitis)",
+    "keySymptoms": [
+      "Swollen hard painful udder",
+      "High fever & nasal discharge"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Swollen hard painful udder",
+        "weight": 3
+      },
+      {
+        "symptom": "High fever & nasal discharge",
+        "weight": 2
+      }
+    ],
+    "causes": "Staphylococcus aureus and Streptococcus bacteria penetrating the teat canal from contaminated bedding.",
+    "causes_hausa": "Kwayoyin cuta da ke shiga ta kan nono daga datti ko raunin da yaran dabba suka yi.",
+    "treatment": "Strip infected milk carefully into disinfectant; inject intramammary antibiotic tubes and systemic penicillin/streptomycin.",
+    "treatment_hausa": "Matse gurbatacciyar madarar a zubar; yi mata allurar Penicillin ko maganin nono na likitan dabbobi.",
+    "prevention": "Maintain clean, dry bedding; dip teats in iodine after milking; separate suckling kids if teats are lacerated.",
+    "prevention_hausa": "Kiyaye tsabtar shimfidar garke; wanke nono da ruwan dumi kafin da bayan tatsewa.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "helminthosis_goat",
+    "animalId": "goat",
+    "name": "Haemonchosis & Internal Worms",
+    "hausa_name": "Tsutsar Ciki da Hanta a Awaki",
+    "keySymptoms": [
+      "Pale gums & bottle jaw swelling",
+      "Foul watery diarrhea"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Pale gums & bottle jaw swelling",
+        "weight": 3
+      },
+      {
+        "symptom": "Foul watery diarrhea",
+        "weight": 2
+      }
+    ],
+    "causes": "Haemonchus contortus (barber pole worm) sucking blood in abomasum, acquired from wet grass grazing.",
+    "causes_hausa": "Tsutsa mai shan jini a cikin hanji da ake kwashewa a ciyawar fadama.",
+    "treatment": "Drench with Albendazole or Levamisole oral drench; inject Iron Dextran and multivitamin for severe anemia.",
+    "treatment_hausa": "Ba su maganin tsutsar ciki na Albendazole ko Levamisole; a ba su maganin karin jini.",
+    "prevention": "Strategic deworming at beginning and end of rainy season; rotational grazing.",
+    "prevention_hausa": "Kore tsutsa a farkon damina da karshenta; guji kiwo a fadama da safe.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "parasites_sheep",
+    "animalId": "sheep",
+    "name": "Gastrointestinal Worms & Liver Fluke",
+    "hausa_name": "Tsutsar Ciki da Hantar Tumaki",
+    "keySymptoms": [
+      "Submandibular edema (bottle jaw)",
+      "Profuse diarrhea & dehydration",
+      "Weight loss despite eating"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Submandibular edema (bottle jaw)",
+        "weight": 3
+      },
+      {
+        "symptom": "Profuse diarrhea & dehydration",
+        "weight": 2
+      },
+      {
+        "symptom": "Weight loss despite eating",
+        "weight": 1
+      }
+    ],
+    "causes": "Haemonchus contortus and Fasciola gigantica flukes picked up from swampy, flooded marsh grazing grounds.",
+    "causes_hausa": "Tsutsa mai shan jini da ake kwashewa a ciyawar fadama da kwandon ruwa.",
+    "treatment": "Dose with Albendazole, Levamisole, or Closantel drench. Provide salt lick blocks and iron supplements.",
+    "treatment_hausa": "Ba su maganin tsutsa na ruwa kamar Albendazole ko Levamisole; sanya dutsen gishirin lashewa.",
+    "prevention": "Deworm whole flock at start of rainy season and after harvest. Keep sheep away from snail-infested swamps.",
+    "prevention_hausa": "Kore tsutsa a farkon damina da ƙarshen girbi. Kaucewa kiwo a inda ruwa ke kwanciya.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "orf_sheep",
+    "animalId": "sheep",
+    "name": "Contagious Ecthyma (Orf)",
+    "hausa_name": "Ciwon Baki da Hanci a Tumaki (Orf)",
+    "keySymptoms": [
+      "Sores around mouth & nostrils",
+      "Weight loss despite eating"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Sores around mouth & nostrils",
+        "weight": 3
+      },
+      {
+        "symptom": "Weight loss despite eating",
+        "weight": 1
+      }
+    ],
+    "causes": "Parapoxvirus entering oral abrasions caused by spiny thorns and dry tough forage.",
+    "causes_hausa": "Kwayar cutar virus dake shiga ta raunin kaya ko ciyawa mai tauri a baki.",
+    "treatment": "Apply mild disinfectant ointment (glycerin and iodine or palm oil) onto mouth lesions; feed soft gruel.",
+    "treatment_hausa": "Shafa man ja ko man iodine a bakin; a ba su laushin dussa ko kunu don su iya ci.",
+    "prevention": "Isolate affected sheep; vaccinate flock scarification; avoid grazing in sharp thorny scrubland.",
+    "prevention_hausa": "Ware tumakin da suka kamu; a kiyaye kiwo a cikin duhun kaya.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "foot_rot_sheep",
+    "animalId": "sheep",
+    "name": "Ovine Foot Rot",
+    "hausa_name": "Rubewar Kofato a Tumaki",
+    "keySymptoms": [
+      "Limping & separation of hoof wall",
+      "Weight loss despite eating"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Limping & separation of hoof wall",
+        "weight": 3
+      },
+      {
+        "symptom": "Weight loss despite eating",
+        "weight": 1
+      }
+    ],
+    "causes": "Dichelobacter nodosus bacterial infection thriving in damp pens and muddy rainy grazing.",
+    "causes_hausa": "Kwayar bakteriya mai ruɓar kofato a lokacin damina da laka.",
+    "treatment": "Carefully pare dead necrotic horn; walk flock through 10% zinc sulfate footbath; spray oxytetracycline.",
+    "treatment_hausa": "Yanke kofaton da ya rube; tsoma a ruwan maganin Zinc sulfate ko kuma fesa maganin feshin ciwo.",
+    "prevention": "Keep pen flooring dry; regular hoof trimming every dry season; quarantine limping sheep.",
+    "prevention_hausa": "Kiyaye bushewar garke; yanke kofato akai-akai a lokacin rani.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "bluetongue_sheep",
+    "animalId": "sheep",
+    "name": "Bluetongue Disease",
+    "hausa_name": "Ciwon Harshen Shudi (Bluetongue)",
+    "keySymptoms": [
+      "Swollen head & blueish tongue",
+      "Sores around mouth & nostrils",
+      "Limping & separation of hoof wall"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Swollen head & blueish tongue",
+        "weight": 3
+      },
+      {
+        "symptom": "Sores around mouth & nostrils",
+        "weight": 2
+      },
+      {
+        "symptom": "Limping & separation of hoof wall",
+        "weight": 2
+      }
+    ],
+    "causes": "Orbivirus transmitted biological vectors (Culicoides biting midges) proliferating near muddy ponds.",
+    "causes_hausa": "Kwayar cutar virus da kananan kudaje masu cizo (midges) ke yadawa a kusa da ruwa.",
+    "treatment": "Supportive care: keep sheep in shade, provide soft feed and clean water, inject flunixin meglumine for pain/swelling.",
+    "treatment_hausa": "Kulawa ta musamman: ajiye su a inuwa; ba su laushin abinci; allurar rage zafi da kumburi.",
+    "prevention": "Control midge breeding sites; move flock to higher dry ground at dusk; spray livestock shelters with pyrethroids.",
+    "prevention_hausa": "Fesa maganin sauro da kudaje a garke; killace tumaki a daki kafin faduwar rana.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "fmd_cattle",
+    "animalId": "cattle",
+    "name": "Foot and Mouth Disease (FMD)",
+    "hausa_name": "Ciwon Bangare da Baki a Shanu",
+    "keySymptoms": [
+      "Blisters on tongue, gums & hooves with drooling",
+      "Severe progressive weight loss & rough coat"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Blisters on tongue, gums & hooves with drooling",
+        "weight": 3
+      },
+      {
+        "symptom": "Severe progressive weight loss & rough coat",
+        "weight": 2
+      }
+    ],
+    "causes": "Aphthovirus spreading extremely rapidly via saliva, shared grazing routes, and cattle market holding pens.",
+    "causes_hausa": "Kwayar cutar virus mai saurin kisa da nakasa dake yaduwa a rafi da burtali.",
+    "treatment": "Wash mouth blisters with mild salt/bicarbonate solution; apply antiseptic foot spray. Feed soft bran gruel and clean water.",
+    "treatment_hausa": "Wanke baki da ruwan gishiri mai sauƙi; shafa magani a ƙafa. Ba su kunun dussa mai taushi.",
+    "prevention": "Report to local veterinary officer; vaccinate herd twice yearly; restrict cattle movement across infected corridors.",
+    "prevention_hausa": "Sanar da likitan dabbobi; yi allurar rigakafi kowanne wata 6; hana shanu yawo a garken wasu.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "trypanosomiasis_cattle",
+    "animalId": "cattle",
+    "name": "Bovine Trypanosomiasis (Sammore)",
+    "hausa_name": "Ciwon Sammore a Shanu",
+    "keySymptoms": [
+      "Severe anemia, lethargy & yellow eyes",
+      "Severe progressive weight loss & rough coat"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Severe anemia, lethargy & yellow eyes",
+        "weight": 3
+      },
+      {
+        "symptom": "Severe progressive weight loss & rough coat",
+        "weight": 2
+      }
+    ],
+    "causes": "Trypanosoma protozoa (T. congolense, T. vivax) transmitted by bites of tsetse flies (Glossina) along river basins.",
+    "causes_hausa": "Kwayar cuta dake shiga ta cizon ƙudan kwaro (kudan kogi/tsetse fly).",
+    "treatment": "Administer Diminazene aceturate (Berenil) or Isometamidium chloride strictly based on exact bodyweight.",
+    "treatment_hausa": "Yi allurar Berenil (Diminazene) ko Isometamidium gwargwadon girman dabbar.",
+    "prevention": "Deploy blue/black biconical tsetse traps along riverbanks; apply pour-on synthetic pyrethroid acaricides.",
+    "prevention_hausa": "Sanya tarkon ƙuda a kusa da rafuka da fesa maganin korar ƙwari a jikin shanu.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "anthrax_cattle",
+    "animalId": "cattle",
+    "name": "Anthrax (Dankanau)",
+    "hausa_name": "Ciwon Dankanau / Bakin Zazzabi a Shanu",
+    "keySymptoms": [
+      "Sudden high fever & blood from body openings",
+      "Severe progressive weight loss & rough coat"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Sudden high fever & blood from body openings",
+        "weight": 3
+      },
+      {
+        "symptom": "Severe progressive weight loss & rough coat",
+        "weight": 1
+      }
+    ],
+    "causes": "Bacillus anthracis spore-forming bacteria surviving in soil for decades. DANGER: Highly infectious to humans (Zoonosis).",
+    "causes_hausa": "Bakteriya mai matukar hadari a kasa wacce zata iya kashe mutum (Zoonosis).",
+    "treatment": "EMERGENCY: Do NOT open carcass! Notify veterinary authority immediately. Early cases treated with massive penicillin.",
+    "treatment_hausa": "GARGADI: Kada a fidi dabbar da ta mutu! A binne ta da toka mai zurfi. Sanar da likita nan take.",
+    "prevention": "Annual Anthrax spore vaccination in endemic grazing belts. Deep burial of carcasses with quicklime.",
+    "prevention_hausa": "Allurar rigakafin dankanau kowace shekara. Binne gawa a rami mai zurfi tare da toka.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "blackleg_cattle",
+    "animalId": "cattle",
+    "name": "Blackleg / Blackquarter (Harbi)",
+    "hausa_name": "Ciwon Harbi / Bakar Gwangwala a Shanu",
+    "keySymptoms": [
+      "Hot painful crackling swelling on thighs/shoulders",
+      "Severe anemia, lethargy & yellow eyes"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Hot painful crackling swelling on thighs/shoulders",
+        "weight": 3
+      },
+      {
+        "symptom": "Severe anemia, lethargy & yellow eyes",
+        "weight": 2
+      }
+    ],
+    "causes": "Clostridium chauvoei spores ingested from soil or pasture, activated by blunt muscle trauma in young cattle.",
+    "causes_hausa": "Kwayoyin bakteriyar clostridium a cikin kasa da ke shiga jini a lokacin damina.",
+    "treatment": "High-dose crystalline Penicillin G immediately if detected early; drain muscle edema under vet direction.",
+    "treatment_hausa": "Allurar maganin Penicillin mai karfi da wuri kafin tsokar ta mutu.",
+    "prevention": "Routine Blackleg polyvalent vaccination of all calves between 3 and 10 months old.",
+    "prevention_hausa": "Allurar rigakafin ciwon harbi ga dukkan marukan da ke tsakanin wata 3 zuwa 10.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "mastitis_cattle",
+    "animalId": "cattle",
+    "name": "Bovine Mastitis",
+    "hausa_name": "Taurin Nono da Ruwan Madara a Shanu",
+    "keySymptoms": [
+      "Hard swollen quarters with clotted milk",
+      "Severe progressive weight loss & rough coat"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Hard swollen quarters with clotted milk",
+        "weight": 3
+      },
+      {
+        "symptom": "Severe progressive weight loss & rough coat",
+        "weight": 1
+      }
+    ],
+    "causes": "Streptococcus agalactiae and Staphylococcus aureus bacteria entering teat orifice from dirty milking hands and pens.",
+    "causes_hausa": "Bakteriya dake shiga ta kan nonon saniya a lokacin tatsewa da dattin hannu ko garke.",
+    "treatment": "Complete milking out of clotted quarters; infuse intramammary antibiotic syringes; apply warm compresses.",
+    "treatment_hausa": "Matse madarar da ta dunkule; sanya maganin kwayar nono; gasa nono da ruwan dumi.",
+    "prevention": "Wash milkers hands and wash teats with clean water before milking; dip teats in disinfectant teat dip.",
+    "prevention_hausa": "Wanke hannu da kan nono kafin tatsewa; tsaftace garken da shanun ke kwanciya.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "parasites_donkey",
+    "animalId": "donkey",
+    "name": "Strongyle & Internal Helminthosis",
+    "hausa_name": "Tsutsar Ciki da Taɓar Jakuna",
+    "keySymptoms": [
+      "Rough dull coat, potbelly & weak stamina",
+      "Severe rolling, pawing ground & belly pain (colic)"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Rough dull coat, potbelly & weak stamina",
+        "weight": 3
+      },
+      {
+        "symptom": "Severe rolling, pawing ground & belly pain (colic)",
+        "weight": 2
+      }
+    ],
+    "causes": "Strongyle and roundworms endemic in working pack donkeys grazing along market stalls and dusty routes.",
+    "causes_hausa": "Tsutsotsin ciki dake addabar jakunan aiki a Arewacin Najeriya.",
+    "treatment": "Administer Ivermectin paste or Fenbendazole oral paste calibrated for donkey bodyweight; provide clean mineral blocks.",
+    "treatment_hausa": "A ba shi maganin tsutsar jaki na Ivermectin ko Fenbendazole; sanya duwatsun gishirin lashewa.",
+    "prevention": "Regular quarterly deworming; avoid feeding mouldy crop stalks harvested directly off manure-laden soil.",
+    "prevention_hausa": "Kore tsutsa duk wata 3; kaucewa ba shi ciyawa mai datti ko rubewa.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "lymphangitis_donkey",
+    "animalId": "donkey",
+    "name": "Epizootic Lymphangitis",
+    "hausa_name": "Ciwon Tokar Jakuna (Epizootic Lymphangitis)",
+    "keySymptoms": [
+      "Ulcerated cord-like lumps along legs & neck",
+      "Rough dull coat, potbelly & weak stamina"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Ulcerated cord-like lumps along legs & neck",
+        "weight": 3
+      },
+      {
+        "symptom": "Rough dull coat, potbelly & weak stamina",
+        "weight": 1
+      }
+    ],
+    "causes": "Histoplasma capsulatum var. farciminosum fungus transmitted through harness rub wounds and biting flies.",
+    "causes_hausa": "Kwayar cutar fungus dake shiga ta raunin igiyar aiki ko cizon kudaje a jiki.",
+    "treatment": "Cauterize early nodules under vet supervision; administer oral potassium iodide or parenteral antifungal agents.",
+    "treatment_hausa": "Tsaftace kurajen da maganin Iodine; duba likitan dabbobi don allurar fungal.",
+    "prevention": "Ensure harnesses and pack saddles are padded; never share infected grooming tools or harness ropes.",
+    "prevention_hausa": "Sanya taushin tsumma a karkashin kayan aikin jaki don hana kwarzane.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "thrush_donkey",
+    "animalId": "donkey",
+    "name": "Equine Thrush & Hoof Canker",
+    "hausa_name": "Rubewar Fatar Kofaton Jaki (Thrush)",
+    "keySymptoms": [
+      "Crusty pus & deep cracks between hoof bulbs",
+      "Severe rolling, pawing ground & belly pain (colic)"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Crusty pus & deep cracks between hoof bulbs",
+        "weight": 3
+      },
+      {
+        "symptom": "Severe rolling, pawing ground & belly pain (colic)",
+        "weight": 1
+      }
+    ],
+    "causes": "Anaerobic bacteria (Fusobacterium necrophorum) trapped in deep hoof sulci from standing in wet dung and mud.",
+    "causes_hausa": "Bakteriyar da ke ruɓar kasan kofato idan jaki ya dade a cikin laka ko kashi.",
+    "treatment": "Pick out hooves thoroughly; clean sulci with hydrogen peroxide; pack with copper naphthenate or dry pine tar.",
+    "treatment_hausa": "Wanke kasan kofato da goge datti; shafa maganin tagulla ko man toka mai busarwa.",
+    "prevention": "Clean hooves daily with a hoof pick; tether donkeys on dry, elevated ground.",
+    "prevention_hausa": "Cire duwatsu da datti daga kofato kullum; daure jaki a busasshen wuri.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "babesiosis_donkey",
+    "animalId": "donkey",
+    "name": "Equine Babesiosis / Piroplasmosis",
+    "hausa_name": "Fitsarin Jini da Zazzabi a Jaki",
+    "keySymptoms": [
+      "Fever, dark red urine & profound weakness",
+      "Rough dull coat, potbelly & weak stamina"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Fever, dark red urine & profound weakness",
+        "weight": 3
+      },
+      {
+        "symptom": "Rough dull coat, potbelly & weak stamina",
+        "weight": 2
+      }
+    ],
+    "causes": "Babesia caballi protozoa transmitted by Rhipicephalus and Hyalomma hard ticks.",
+    "causes_hausa": "Kwayar cuta dake shiga ta cizon kaska (ticks) tana lalata jajayen kwayoyin jini.",
+    "treatment": "Inject Imidocarb dipropionate or Diminazene aceturate strictly according to equine weight dosages.",
+    "treatment_hausa": "Yi allurar Imidocarb ko Diminazene karkashin shawarar ma’aikacin kiwon lafiyar dabbobi.",
+    "prevention": "Apply anti-tick sprays or pour-on pyrethroids regularly around groin and tail head.",
+    "prevention_hausa": "Fesa maganin kashe kaska a karkashin cinyoyi da wutsiya akai-akai.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "surra_camel",
+    "animalId": "camel",
+    "name": "Surra (Trypanosoma evansi)",
+    "hausa_name": "Ciwon Surra a Rakumi",
+    "keySymptoms": [
+      "Intermittent fever, wasting & anemia (Surra)",
+      "Edema of belly and sheath",
+      "Abortion in pregnant female camels"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Intermittent fever, wasting & anemia (Surra)",
+        "weight": 3
+      },
+      {
+        "symptom": "Edema of belly and sheath",
+        "weight": 2
+      },
+      {
+        "symptom": "Abortion in pregnant female camels",
+        "weight": 2
+      }
+    ],
+    "causes": "Trypanosoma evansi transmitted mechanically by Tabanid and Stomoxys biting flies during wet migratory movements.",
+    "causes_hausa": "Kwayar cutar protozoa da manyan ƙudaje masu cizo (Tabanids) ke yadawa a damina.",
+    "treatment": "Inject Melarsomine (Cymelarsan) or Quinapyramine sulfate under veterinary direction.",
+    "treatment_hausa": "Allurar Quinapyramine ko Cymelarsan ƙarƙashin jagorancin likitan dabbobi.",
+    "prevention": "Light smudge smoke fires around camel pens at dusk to repel biting flies; monitor body score.",
+    "prevention_hausa": "Hura hayaki a garken rakuma da yamma don korar kudaden cizo.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "mange_camel",
+    "animalId": "camel",
+    "name": "Sarcoptic Mange (Kirchi)",
+    "hausa_name": "Kirchin Rakumi (Sarcoptic Mange)",
+    "keySymptoms": [
+      "Thick crusty scabs on skin during rains (Kirchi)",
+      "Intermittent fever, wasting & anemia (Surra)"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Thick crusty scabs on skin during rains (Kirchi)",
+        "weight": 3
+      },
+      {
+        "symptom": "Intermittent fever, wasting & anemia (Surra)",
+        "weight": 1
+      }
+    ],
+    "causes": "Sarcoptes scabiei var. cameli mite burrowing beneath skin, spreading rapidly during humid rainy periods.",
+    "causes_hausa": "Kananan kwayoyin kaska na mange da ke rami a karkashin fatar jiki.",
+    "treatment": "Inject subcutaneous Ivermectin (repeat after 14 days); wash skin scabs with sulfur ointment or neem oil.",
+    "treatment_hausa": "Allurar Ivermectin a karkashin fata (a maimaita bayan kwanaki 14); shafa man darbejiya ko toka.",
+    "prevention": "Isolate newly introduced camels; treat all in-contact animals simultaneously; burn infested saddles.",
+    "prevention_hausa": "Ware rakuman da ke da kirchi; a wanke kayan sirdi da maganin kashe kwari.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "enteritis_camel",
+    "animalId": "camel",
+    "name": "Camel Enteritis & Johne’s Disease",
+    "hausa_name": "Gudawar Ciki mai Tsanani a Rakumi",
+    "keySymptoms": [
+      "Chronic watery diarrhea & weight loss",
+      "Edema of belly and sheath",
+      "Abortion in pregnant female camels"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Chronic watery diarrhea & weight loss",
+        "weight": 3
+      },
+      {
+        "symptom": "Edema of belly and sheath",
+        "weight": 2
+      },
+      {
+        "symptom": "Abortion in pregnant female camels",
+        "weight": 1
+      }
+    ],
+    "causes": "Mycobacterium avium subsp. paratuberculosis or severe nutritional shifts from toxic desert weeds.",
+    "causes_hausa": "Bakteriya ko cin guba daga tsiron daji wanda ke hana hanji sarrafa abinci.",
+    "treatment": "Oral rehydration with mineral electrolytes; administer astringent charcoal drench and supportive probiotics.",
+    "treatment_hausa": "Shayar da ruwan gishiri da sukari; ba su garin gawayi mai tsafta da bitamin.",
+    "prevention": "Prevent grazing on pastures contaminated by manure from sick ruminants; ensure clean oasis water.",
+    "prevention_hausa": "Kiyaye tsabtar ruwan sha da wuraren kiwo.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "asf_pig",
+    "animalId": "pig",
+    "name": "African Swine Fever (ASF)",
+    "hausa_name": "Zazzabin Alade na Afirka (ASF)",
+    "keySymptoms": [
+      "High fever & blue-purple blotches on ears & abdomen",
+      "Vomiting, bloody diarrhea & sudden flock mortality",
+      "Late-term abortion in sows"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "High fever & blue-purple blotches on ears & abdomen",
+        "weight": 3
+      },
+      {
+        "symptom": "Vomiting, bloody diarrhea & sudden flock mortality",
+        "weight": 3
+      },
+      {
+        "symptom": "Late-term abortion in sows",
+        "weight": 1
+      }
+    ],
+    "causes": "Asfarviridae DNA virus transmitted through untreated swill feeding, soft ticks, and contaminated footwear.",
+    "causes_hausa": "Kwayar cutar virus mai tsananin kisa dake yaduwa ta ragowar abinci, kaska da takalmi.",
+    "treatment": "No treatment exists. Mortality reaches 100%. Immediately isolate and notify national veterinary authorities.",
+    "treatment_hausa": "Babu magani. Yana kashe kusan duka. Sanar da jami'an gwamnati nan take.",
+    "prevention": "Strict biosecurity: NEVER feed untreated restaurant swill or food scraps; disinfect boots at entrance footbath.",
+    "prevention_hausa": "Kada a ba su ragowar abincin otal ko gidan cin abinci; a wanke takalmi a maganin kashe kwayoyin cuta.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "svd_pig",
+    "animalId": "pig",
+    "name": "Swine Vesicular Disease",
+    "hausa_name": "Kumburi da Gyambon Kofato a Alade",
+    "keySymptoms": [
+      "Blisters on snout, lips & coronary band",
+      "High fever & blue-purple blotches on ears & abdomen"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Blisters on snout, lips & coronary band",
+        "weight": 3
+      },
+      {
+        "symptom": "High fever & blue-purple blotches on ears & abdomen",
+        "weight": 2
+      }
+    ],
+    "causes": "Enterovirus spreading via direct contact with broken vesicles and contaminated fecal pens.",
+    "causes_hausa": "Kwayar cutar enterovirus da ke haifar da gyambo da kurajen kofato da hanci.",
+    "treatment": "Provide soft gruel and clean water; spray feet with copper sulfate and antiseptic spray to speed healing.",
+    "treatment_hausa": "Ba su abinci mai laushi; fesa maganin antiseptic a kofato da baki.",
+    "prevention": "Enforce strict quarantine; cook all feed waste thoroughly before feeding; disinfect pens with sodium hydroxide.",
+    "prevention_hausa": "Dafa duk wani abincin shara kafin bayarwa; wanke garke da maganin kashe kwayoyin cuta.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "mange_pig",
+    "animalId": "pig",
+    "name": "Sarcoptic Mange in Pigs",
+    "hausa_name": "Kazuwar Alade (Sarcoptic Mange)",
+    "keySymptoms": [
+      "Intense scratching, thick scabs & mange",
+      "Late-term abortion in sows"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Intense scratching, thick scabs & mange",
+        "weight": 3
+      },
+      {
+        "symptom": "Late-term abortion in sows",
+        "weight": 1
+      }
+    ],
+    "causes": "Sarcoptes scabiei var. suis mite burrowing into epidermis, causing intense allergic pruritus.",
+    "causes_hausa": "Kwayoyin mange dake haifar da matsanancin kaikayi a jikin alade.",
+    "treatment": "Inject Ivermectin subcutaneously or spray pens with amitraz/phosmet wash; repeat after 14 days.",
+    "treatment_hausa": "Yi allurar Ivermectin; fesa maganin kashe kwari a garken aladu.",
+    "prevention": "Treat sows prior to entering farrowing pens; clean and scrub nursery pens.",
+    "prevention_hausa": "Yi wa alade allurar riga-kafi kafin ta haihu a tsaftace garke.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "brucellosis_pig",
+    "animalId": "pig",
+    "name": "Porcine Brucellosis",
+    "hausa_name": "Ciwon Bari a Alade (Brucellosis)",
+    "keySymptoms": [
+      "Late-term abortion in sows",
+      "Vomiting, bloody diarrhea & sudden flock mortality"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Late-term abortion in sows",
+        "weight": 3
+      },
+      {
+        "symptom": "Vomiting, bloody diarrhea & sudden flock mortality",
+        "weight": 1
+      }
+    ],
+    "causes": "Brucella suis bacterial infection transmitted sexually and via aborted fetuses/placental membranes.",
+    "causes_hausa": "Kwayar bakteriya dake jawo zubar da ciki da rashin haihuwa.",
+    "treatment": "Cull infected breeding stock under veterinary guidelines; no reliable antibiotic curative therapy.",
+    "treatment_hausa": "Babu cikakken magani; a cire dabbobin da ke dauke da cutar domin kiyaye sauran.",
+    "prevention": "Screen breeding boars and gilts with serological testing before introducing to herd.",
+    "prevention_hausa": "Gwajin jini kafin hada sababbin aladu don haihuwa.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "botulism_duck",
+    "animalId": "duck",
+    "name": "Botulism (Limberneck)",
+    "hausa_name": "Ciwon Sanko da Sanyin Wuya (Limberneck)",
+    "keySymptoms": [
+      "Limp neck resting on ground (Limberneck/Botulism)",
+      "Tremors, wing drooping & greenish diarrhea"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Limp neck resting on ground (Limberneck/Botulism)",
+        "weight": 3
+      },
+      {
+        "symptom": "Tremors, wing drooping & greenish diarrhea",
+        "weight": 2
+      }
+    ],
+    "causes": "Clostridium botulinum neurotoxin ingested from rotting aquatic vegetation or decaying animal carcasses in stagnant ponds.",
+    "causes_hausa": "Gubar bakteriya dake shiga ta rubabben gawa ko ciyawar tafkin ruwa.",
+    "treatment": "Flock-wide flush with Epsom salts in clean drinking water (1 tablespoon per liter); provide shade and fresh flowing water.",
+    "treatment_hausa": "A ba su ruwa mai gishirin Epsom; a ajiye su a inuwa mai sanyi da ruwa mai kyau mai gudu.",
+    "prevention": "Remove dead birds, dead frogs, and rotting compost from duck swimming ponds immediately.",
+    "prevention_hausa": "Cire gawar dabbobi da rubabbun abubuwa daga kududdufin agwagwa.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "plague_duck",
+    "animalId": "duck",
+    "name": "Duck Viral Enteritis (Duck Plague)",
+    "hausa_name": "Ciwon Samoren Agwagwa (Duck Plague)",
+    "keySymptoms": [
+      "Tremors, wing drooping & greenish diarrhea",
+      "Limp neck resting on ground (Limberneck/Botulism)"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Tremors, wing drooping & greenish diarrhea",
+        "weight": 3
+      },
+      {
+        "symptom": "Limp neck resting on ground (Limberneck/Botulism)",
+        "weight": 1
+      }
+    ],
+    "causes": "Herpesvirus spread via contaminated water bodies and direct interaction with wild waterfowl.",
+    "causes_hausa": "Kwayar cutar herpesvirus da ke yaduwa a tafkunan ruwa da tsuntsayen daji.",
+    "treatment": "No antiviral cure. Isolate flock; inject antibiotics to control secondary pasteurellosis; provide oral vitamins.",
+    "treatment_hausa": "Babu maganin virus. A ba su maganin rigakafin bakteriya da bitamin a ruwan sha.",
+    "prevention": "Vaccinate ducks with live attenuated duck plague vaccine; prevent contact with wild aquatic birds.",
+    "prevention_hausa": "Allurar riga-kafin duck plague; hana haduwa da tsuntsayen ruwa na daji.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "hepatitis_duck",
+    "animalId": "duck",
+    "name": "Duck Viral Hepatitis",
+    "hausa_name": "Ciwon Hantar Agwagwa (Viral Hepatitis)",
+    "keySymptoms": [
+      "Ducklings suddenly dying lying on side with head thrown back",
+      "Tremors, wing drooping & greenish diarrhea"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Ducklings suddenly dying lying on side with head thrown back",
+        "weight": 3
+      },
+      {
+        "symptom": "Tremors, wing drooping & greenish diarrhea",
+        "weight": 2
+      }
+    ],
+    "causes": "Avihepatovirus causing acute fatal liver necrosis primarily in ducklings under 4 weeks of age.",
+    "causes_hausa": "Kwayar cutar virus dake kashe matasan agwagwa cikin sauri ta hanyar lalata hanta.",
+    "treatment": "Immediate injection of specific convalescent duck serum or hyperimmune serum to exposed ducklings.",
+    "treatment_hausa": "Allurar serum ta musamman ga 'ya'yan agwagwa idan an gano cutar da wuri.",
+    "prevention": "Vaccinate breeder ducks prior to laying to confer maternal antibodies to ducklings.",
+    "prevention_hausa": "Yi wa manyan agwagwa allurar riga-kafi kafin su fara yin kwai.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "sinusitis_duck",
+    "animalId": "duck",
+    "name": "Infectious Sinusitis & Coryza",
+    "hausa_name": "Ciwon Ido da Hancin Agwagwa",
+    "keySymptoms": [
+      "Severe eye crusts & swollen sinuses",
+      "Tremors, wing drooping & greenish diarrhea"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Severe eye crusts & swollen sinuses",
+        "weight": 3
+      },
+      {
+        "symptom": "Tremors, wing drooping & greenish diarrhea",
+        "weight": 1
+      }
+    ],
+    "causes": "Mycoplasma and Pasteurella multocida triggered by filthy, dusty pens and uncleaned swimming troughs.",
+    "causes_hausa": "Bakteriyar da ke rufe idanu da toshe hancin agwagwa saboda datti da kura.",
+    "treatment": "Flush eyes and nostrils with warm saline; administer Oxytetracycline or Enrofloxacin in drinking water.",
+    "treatment_hausa": "Wanke idanu da ruwan dumi mai gishiri kadan; a zuba maganin Enrofloxacin a ruwan sha.",
+    "prevention": "Provide clean water for head dipping; regular washing of water troughs.",
+    "prevention_hausa": "Tsaftace ruwan wankan agwagwa da wurin kwana kullum.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "blackhead_turkey",
+    "animalId": "turkey",
+    "name": "Histomoniasis (Blackhead Disease)",
+    "hausa_name": "Ciwon Duhu a Fuska da Ciki (Blackhead)",
+    "keySymptoms": [
+      "Sulfur-yellow diarrhea & darkened head (Blackhead)",
+      "Pasty vents, drowsiness & ruffled feathers"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Sulfur-yellow diarrhea & darkened head (Blackhead)",
+        "weight": 3
+      },
+      {
+        "symptom": "Pasty vents, drowsiness & ruffled feathers",
+        "weight": 2
+      }
+    ],
+    "causes": "Histomonas meleagridis protozoan carried within the eggs of the common cecal worm (Heterakis gallinarum) hosted by chickens.",
+    "causes_hausa": "Kwayar protozoa dake zama a cikin tsutsar kaji da ke shafar talo-talo.",
+    "treatment": "Administer Dimetridazole, Metronidazole, or organic oregano oil and herbal liver protectants in drinking water.",
+    "treatment_hausa": "A ba su maganin Dimetridazole ko ruwan maganin ganyen oregano da bitamin.",
+    "prevention": "CRITICAL: NEVER rear turkeys together with chickens or on ground where chickens ranged within the past 3 years.",
+    "prevention_hausa": "KADA a taba ajiye talo-talo tare da kaji a wuri guda, domin kaji suna ɗauke da cutar ba tare da sun mutu ba.",
+    "isUrgentContagious": true
+  },
+  {
+    "id": "pox_turkey",
+    "animalId": "turkey",
+    "name": "Turkey Pox",
+    "hausa_name": "Kurajen Zanko a Talo-talo (Turkey Pox)",
+    "keySymptoms": [
+      "Warty nodules on snood, head & eyelids",
+      "Pasty vents, drowsiness & ruffled feathers"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Warty nodules on snood, head & eyelids",
+        "weight": 3
+      },
+      {
+        "symptom": "Pasty vents, drowsiness & ruffled feathers",
+        "weight": 1
+      }
+    ],
+    "causes": "Avipoxvirus meleagridis transmitted by biting mosquitoes and cutaneous skin scratches.",
+    "causes_hausa": "Kwayar cutar virus da sauro ke yadawa ta hanyar cizon fuskar talo-talo.",
+    "treatment": "Paint scabs with tincture of iodine or palm oil; administer broad-spectrum antibiotics to avert ocular blindness.",
+    "treatment_hausa": "Shafa maganin Iodine ko man ja a kurajen; ba su maganin ciwon ido a ruwan sha.",
+    "prevention": "Wing-web vaccination with turkey pox vaccine at 8-10 weeks; mosquito abatement around roosts.",
+    "prevention_hausa": "Allurar riga-kafi a fuka-fuki a makonni 8-10; fesa maganin sauro a wurin kwana.",
+    "isUrgentContagious": false
+  },
+  {
+    "id": "worms_turkey",
+    "animalId": "turkey",
+    "name": "Severe Helminthiasis in Turkeys",
+    "hausa_name": "Tsutsar Ciki mai Ramar da Talo-talo",
+    "keySymptoms": [
+      "Emaciation despite voracious eating (worms)",
+      "Pasty vents, drowsiness & ruffled feathers"
+    ],
+    "weightedSymptoms": [
+      {
+        "symptom": "Emaciation despite voracious eating (worms)",
+        "weight": 3
+      },
+      {
+        "symptom": "Pasty vents, drowsiness & ruffled feathers",
+        "weight": 2
+      }
+    ],
+    "causes": "Ascaridia dissimilis and Capillaria worms proliferating in dirt yards, robbing essential nutrients from the gut.",
+    "causes_hausa": "Kananan tsutsotsi da ke zama a hanjin talo-talo suna cin abincin da ya kamata ya sa su girma.",
+    "treatment": "Drench flock with Piperazine, Levamisole, or Albendazole oral suspension in clean drinking water; repeat in 14 days.",
+    "treatment_hausa": "Ba su maganin Piperazine ko Albendazole a ruwan sha; a maimaita bayan kwanaki 14.",
+    "prevention": "Regular deworming every 6 to 8 weeks; keep outdoor yards well-drained and sun-exposed.",
+    "prevention_hausa": "Kore tsutsa akai-akai; tsaftace dakin kaji da garken talo-talo.",
+    "isUrgentContagious": false
+  }
+]

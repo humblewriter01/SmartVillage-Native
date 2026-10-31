@@ -1,0 +1,35 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+*.iml
+.idea/
+.vscode/
+.flutter-plugins
+
+# Android
+android/.gradle/
+android/local.properties
+android/key.properties
+android/app/debug/
+android/app/profile/
+android/app/release/
+android/app/.cxx/
+*.apk
+*.aab
+*.jks
+*.keystore
+
+# The Murya voice is large and licence-bound: keep it out of git and drop the
+# two files into assets/models/ on each machine that needs it.
+assets/models/*.onnx
+assets/models/*.onnx.json
+
+# OS / editor noise
+.DS_Store
+*.swp
+*.log
