@@ -21,6 +21,44 @@ void main() {
       expect(TtsChunker.looksEnglish('Benzoate'), isTrue);
       expect(TtsChunker.looksEnglish('configuration'), isTrue);
     });
+
+    test('pesticide active ingredients reach the English voice', () {
+      // These are the words the app actually speaks in crop advice; Murya
+      // would mangle every one of them.
+      for (final word in <String>[
+        'pendimethalin',
+        'atrazine',
+        'cypermethrin',
+        'abamectin',
+        'streptomycin',
+        'chlorothalonil',
+        'imidacloprid',
+        'carbendazim',
+      ]) {
+        expect(TtsChunker.looksEnglish(word), isTrue, reason: word);
+      }
+    });
+
+    test('genitive and plural Hausa nouns stay with Murya', () {
+      // Long Hausa nouns must not be mistaken for drug names just because
+      // they are unfamiliar: these carry the genitive linker -ar/-an/-in.
+      for (final word in <String>[
+        'magungunan',
+        'ambaliyar',
+        'sinadarin',
+        'tashoshin',
+        'muhimmanci',
+        'farfadiya',
+        'hannaye',
+        'likitancin',
+      ]) {
+        expect(TtsChunker.looksEnglish(word), isFalse, reason: word);
+      }
+    });
+
+    test('reduplicated Hausa compounds are Hausa despite the hyphen', () {
+      expect(TtsChunker.looksEnglish('shuke-shuke'), isFalse);
+    });
   });
 
   group('chunking', () {

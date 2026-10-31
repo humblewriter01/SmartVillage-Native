@@ -61,7 +61,7 @@ class TtsChunker {
     'rana', 'rani', 'rashin', 'ruwa', 'ruwan', 'saboda', 'saida', 'sai',
     'sake', 'sakamakon', 'sannu', 'sanyi', 'sauran', 'saurara', 'saurari',
     'sauka', 'shafi', 'shanya', 'shayarwa', 'shi', 'shida', 'shirin', 'shuka',
-    'shukar', 'shuke', 'shuke-shuke', 'sosai', 'su', 'suka', 'suna', 'tace',
+    'shukar', 'shuke', 'shukeshuke', 'sosai', 'su', 'suka', 'suna', 'tace',
     'tafasa', 'tafi', 'tambaya', 'tambayi', 'tare', 'tarin', 'tashi', 'taso',
     'tattara', 'taya', 'ta', 'tabbatar', 'tambarin', 'tambura', 'tana',
     'tane', 'taswira', 'tayi', 'to', 'tsabta', 'tsafta', 'tsarin', 'tsire',
@@ -86,19 +86,57 @@ class TtsChunker {
     'inganci', 'ingantaccen', 'kyakkyawa', 'karami', 'babba', 'mafi', 'yawa',
     'kadan', 'tsaye', 'zaune', 'kwance', 'gudu', 'zafi', 'bushe', 'busasshen',
     'danye', 'danyen', 'sabo', 'tsohon', 'sabon', 'tsawon', 'gajere',
+    // genitive / plural forms met in the app's own Hausa copy. These are
+    // written as `_core` sees them: hyphens are stripped, so the reduplicated
+    // `shuke-shuke` is stored as `shukeshuke`.
+    'ambaliyar', 'batutuwan', 'bakteriyar', 'farfadiya', 'hannaye',
+    'laburaren', 'likitancin', 'magungunan', 'matsakaici', 'muhimmanci',
+    'shawarwarin', 'sinadarin', 'tashoshin', 'almakashin',
   };
 
   /// Signals that a word is very likely English (and therefore should be read
   /// by the device voice rather than Murya).
+  ///
+  /// Everything here is evidence *for* English; [looksEnglish] weighs it
+  /// against the Hausa evidence below and only switches voice when the English
+  /// side wins outright. A tie stays Hausa on purpose: Murya is the primary
+  /// voice, so an unknown word is given to it unless the English evidence is
+  /// clear.
   static final RegExp _englishSuffix = RegExp(
     r'(tion|sion|ment|ness|able|ible|ance|ence|ous|ity|ical|ing|ism|ist|ive|ary|ery|ide|ine|ase|ate|ose|ole|ol|al|ic)$',
     caseSensitive: false,
   );
 
   static final RegExp _englishDigraph = RegExp(
-    r'(ck|ph|wh|gh|oo|ee|ea|ou|ow|ai|ay|kn|wr|gn|mb|tch)',
+    r'(ck|ph|wh|gh|th|oo|ee|ea|ou|ow|ai|ay|kn|wr|gn|mb|tch)',
     caseSensitive: false,
   );
+
+  /// Consonant pairs that are a *single* sound in Hausa orthography, so the
+  /// three-consonant test below does not fire on words such as `lankwasa`.
+  static final RegExp _hausaDigraph = RegExp(
+    r'sh|ts|kw|gw|ky|gy|ƙw',
+    caseSensitive: false,
+  );
+
+  /// Hausa syllables are CV, so a run of three consonants (after collapsing
+  /// [_hausaDigraph]) is a strong sign of a foreign word: `streptomycin`,
+  /// `chlorothalonil`, `pendimethalin`.
+  static final RegExp _longConsonantRun = RegExp(r'[bcdfghjklmnpqrstvwxyz]{3,}');
+
+  /// Hausa genitive/linker endings carried by ordinary nouns:
+  /// `magungunan`, `ambaliyar`, `sinadarin`, `tashoshin`.
+  static final RegExp _hausaLinker = RegExp(
+    r'(ar|war|yar|an|nan|nin|nka|nki|nmu|nsu|nta|nku)$',
+  );
+
+  /// Verbal endings (`-na`, `-ka`, `-ta`…). Only trusted on short words: on a
+  /// long token they are coincidental, and they would otherwise cancel the
+  /// English evidence for `atrazine` (`-ne`) or `emamectin` (`-in`).
+  static final RegExp _hausaVerbalEnding = RegExp(r'(na|ka|ki|mu|su|ta|ne|ce)$');
+
+  /// Longest word for which [_hausaVerbalEnding] is treated as meaningful.
+  static const int _verbalEndingMaxLength = 7;
 
   static final RegExp _hausaHook = RegExp(r'[ɓɗƙƴ]');
   static final RegExp _nonWord = RegExp(
@@ -123,10 +161,17 @@ class TtsChunker {
     if (_englishSuffix.hasMatch(core)) english += 2;
     if (_englishDigraph.hasMatch(core)) english += 1;
     if (RegExp('[xvq]').hasMatch(core)) english += 2;
+    // `p` is absent from native Hausa phonology (loanwords only).
+    if (core.contains('p')) english += 1;
     // Long, unfamiliar tokens are far more likely to be drug/brand names.
-    if (core.length >= 9) english += 1;
+    // This is what separates `emamectin` from `magungunan`: the second one is
+    // reclaimed below by its Hausa linker ending.
+    if (core.length >= 9) english += 2;
     if (core.endsWith('s') && core.length > 3) english += 1;
-    if (core.contains('-')) english += 1;
+    if (word.contains('-')) english += 1;
+
+    final flattened = core.replaceAll(_hausaDigraph, 'C');
+    if (_longConsonantRun.hasMatch(flattened)) english += 2;
 
     // Hausa orthography never doubles a consonant inside a stem.
     if (RegExp(r'(bb|dd|ff|gg|kk|ll|mm|nn|pp|rr|ss|tt|zz)').hasMatch(core)) {
@@ -135,8 +180,13 @@ class TtsChunker {
     // Hausa words very often end in a vowel or in -n/-r/-k.
     if (RegExp(r'[aeiou]$').hasMatch(core)) hausa += 1;
     if (RegExp(r'(n|r|k)$').hasMatch(core)) hausa += 1;
-    // Ina / ana / -ka / -ki style verbal endings.
-    if (RegExp(r'(na|ka|ki|mu|su|ta|ne|ce)$').hasMatch(core)) hausa += 1;
+    // Ina / ana / -ka / -ki style verbal endings, on short words only.
+    if (core.length <= _verbalEndingMaxLength &&
+        _hausaVerbalEnding.hasMatch(core)) {
+      hausa += 1;
+    }
+    // Genitive linker: `magungunan`, `ambaliyar`, `sinadarin`.
+    if (_hausaLinker.hasMatch(core)) hausa += 2;
 
     return english > hausa;
   }
