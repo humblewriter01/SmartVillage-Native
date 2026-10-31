@@ -34,6 +34,11 @@ android/app/.cxx/
 *.onnx.tmp
 *.onnx.tmp_data
 tool/.quantize-cache/
+.murya-venv/
+
+# Python tooling bytecode
+__pycache__/
+*.py[cod]
 
 # OS / editor noise
 .DS_Store

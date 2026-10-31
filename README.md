@@ -18,7 +18,8 @@ scoring, water-quality scoring, the map, SOS SMS, reminders and both voices.
 Prerequisites: Flutter **3.22+** (Dart 3.4+), Android SDK 34, JDK 17.
 
 ```bash
-cd smartvillage_flutter
+git clone https://github.com/humblewriter01/SmartVillage-Native.git
+cd SmartVillage-Native          # pubspec.yaml lives at the repository root
 flutter pub get
 flutter run                 # debug on a connected device / emulator
 flutter build apk --release # release APK (debug key unless key.properties exists)
@@ -28,34 +29,52 @@ flutter test                # unit tests, no device needed
 CI: `codemagic.yaml` builds a release APK on every push to `main`
 (mac_mini_m2 → `flutter pub get` → `flutter test` → `flutter build apk --release`).
 
-The app targets Android (`minSdk 23`, `compileSdk 34`, portrait only). iOS and
+The app targets Android (`minSdk 24`, `compileSdk 34`, portrait only). iOS and
 desktop folders are not included; the Android host project under `android/` is
 complete and self-contained.
 
-### Enable the Hausa voice
+### The Hausa voice is included
 
-`assets/models/murya.onnx.json` and `MODEL_ATTRIBUTION.txt` are committed; the
-INT8 graph itself (`murya.onnx`, ~21.7 MB) is produced once with:
+`assets/models/` carries the whole voice, so there is nothing to download:
+
+| File | Size | |
+| --- | --- | --- |
+| `murya.onnx` | 22,745,309 B (21.7 MB) | INT8 QDQ graph, `onnx.quantize 0.1.0`, opset 15 |
+| `murya.onnx.json` | 2.3 kB | Piper config: 22 050 Hz, 8 speakers, `phoneme_type: text` |
+| `MODEL_ATTRIBUTION.txt` | 3.4 kB | CC BY-NC-SA 4.0 credit |
+
+Verify it on any machine (needs `pip install -r tool/requirements-quantize.txt`):
 
 ```bash
-curl -L -o model.onnx      https://huggingface.co/adab-tech/murya-piper-hausa-tts/resolve/main/model.onnx
-curl -L -o model.onnx.json https://huggingface.co/adab-tech/murya-piper-hausa-tts/resolve/main/model.onnx.json
-pip install -r tool/requirements-quantize.txt
-python tool/quantize_murya.py --model model.onnx --config model.onnx.json \
-                              --mode qdq --out assets/models/murya.onnx
-flutter pub get
+python3 tool/verify_murya.py --wav /tmp/murya.wav   # add --threads 1 to emulate a weak phone
 ```
 
-Codemagic can do this for you instead: set `MURYA_ONNX_URL` to a prebuilt file.
-Without the graph the app runs normally on the device voice. Details, model
-facts and licence terms: `assets/models/README.md`.
+That runs the app's real pipeline — `TextPreprocessor` → Piper token ids →
+ONNX Runtime — on five Hausa sentences and fails if the audio is silent,
+clipped or an implausible length. Last run against the committed graph:
+
+```text
+phrase         tokens  samples  seconds     rms   peak     infer
+greeting           56    36864     1.67  0.0839  0.326    164ms
+crop advice        80    52224     2.37  0.0727  0.308    203ms
+disease           108    70656     3.20  0.0640  0.329    319ms
+health triage     106    80640     3.66  0.0643  0.348    370ms
+water             100    76800     3.48  0.0691  0.350    346ms
+multi-speaker : OK - voices differ
+PASS - the committed graph speaks Hausa with the app's tokenizer.
+```
+
+Rebuilding the graph from the FP32 upstream export (only needed if the model is
+updated): `tool/fetch_murya.sh`. Details and licence terms:
+`assets/models/README.md`.
 
 ---
 
 ## 2. What is inside
 
 ```
-smartvillage_flutter/
+SmartVillage-Native/          (repository root = Flutter project root)
+├── codemagic.yaml              CI: Android release workflow
 ├── lib/
 │   ├── main.dart                 AppState init → AppScope → MaterialApp → AppShell
 │   ├── core/
@@ -116,7 +135,7 @@ smartvillage_flutter/
 │   │   └── leaf_illustration.dart    CustomPainter crop art (no bitmaps)
 │   └── screens/                 13 screens (see §3)
 ├── android/                     Host project: manifest, Gradle, theme, icons
-├── assets/models/               Murya model drop-zone (+ README)
+├── assets/models/               Murya graph + config + attribution
 ├── assets/images/               Placeholder for future bitmaps (+ README)
 ├── test/                        5 unit-test files (see §6)
 └── tool/                        Data generator, JSON snapshot, Dart checker
@@ -284,9 +303,11 @@ python3 tool/check_dart.py    # lib/ and test/
   on the first `flutter pub get && flutter analyze`. The data layer, service
   algorithms and test expectations were audited by hand against the React
   original.
-* The Murya graph is not committed in this checkout (it has to be quantised
-  once, or supplied by CI — see `assets/models/README.md`); until then Hausa
-  speech falls back to the device voice.
+* The Murya graph is committed and verified, but it has only been exercised on
+  x86 (see §1). On a low-end phone the first synthesis after launch pays a
+  ~2-4 s model load, which is why `AppState` warms the model up when Hausa is
+  selected; individual requests are split at 250 characters to stay inside the
+  2 s generation budget.
 * The offline map is a projected canvas with tappable pins, not a tile map —
   there is no packaged basemap, matching the reference app’s offline design.
 * Live weather needs a network connection; the last forecast is cached and
@@ -309,7 +330,7 @@ python3 tool/check_dart.py    # lib/ and test/
 | Workflow | `android-release` |
 | Instance | `mac_mini_m2` |
 | Trigger | push to `main` (superseded builds cancelled) |
-| Steps | diagnostics → *prepare Murya model* → `python3 tool/check_dart.py` → `flutter pub get` → `flutter analyze` (non-fatal) → `flutter test` → `flutter build apk --release` → checksum |
+| Steps | diagnostics → Murya asset check → `python3 tool/check_dart.py` → `flutter pub get` → `flutter analyze` (non-fatal) → `flutter test` → `flutter build apk --release` → checksum |
 | Artifacts | `build/app/outputs/flutter-apk/*.apk`, `apk-sha256.txt` |
 
 One-time setup in the Codemagic UI:
@@ -321,11 +342,11 @@ One-time setup in the Codemagic UI:
    `CM_KEY_ALIAS`, `CM_KEY_PASSWORD`. `android/app/build.gradle` uses it when
    `android/key.properties` exists and otherwise falls back to the debug key,
    so the build never breaks for lack of a keystore.
-3. **Murya voice (optional)** — either commit `assets/models/murya.onnx` or set
-   `MURYA_ONNX_URL` (+ `MURYA_ONNX_JSON_URL` if the config is not committed) in
-   the same group. The prepare step validates the download (size, ONNX magic
-   byte, config presence) and fails loudly on a truncated file. With no model
-   it prints a notice and the APK is built with the device-voice fallback.
+3. **Murya voice** — already committed, so nothing to configure. The CI step
+   still validates it (size, ONNX magic byte, config presence) and only falls
+   back to downloading `MURYA_ONNX_URL` if the graph is ever removed. Set
+   `MURYA_VERIFY: "1"` in the env group to run the full
+   `tool/verify_murya.py` inference check during the build (adds ~1 min).
 
 Signing/real-device notes: `minSdk 24`, `targetSdk 34`, `compileSdk 34`,
 JVM 17, Gradle 8.4, AGP 8.3.2.

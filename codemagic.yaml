@@ -9,9 +9,10 @@
 #   * optional signing: create an env group "smartvillage_signing" holding
 #     CM_KEYSTORE, CM_KEYSTORE_PASSWORD, CM_KEY_ALIAS, CM_KEY_PASSWORD.
 #     Without it the APK is signed with the debug key and still installs.
-#   * optional Murya voice: set MURYA_ONNX_URL (and MURYA_ONNX_JSON_URL) in that
-#     same group, or commit assets/models/murya.onnx — then the fetch step is a
-#     no-op / built-in.
+#   * Murya voice: assets/models/murya.onnx is committed (21.7 MB INT8), so the
+#     asset step only validates it. Set MURYA_VERIFY=1 in the env group to also
+#     run a real inference check (~1 min extra). MURYA_ONNX_URL is only used as
+#     a fallback if the committed graph is ever removed.
 #
 # Docs: https://docs.codemagic.io/yaml/building-a-flutter-app/
 
@@ -33,6 +34,7 @@ workflows:
         # e.g. a GitHub release asset). Empty = build without the model.
         MURYA_ONNX_URL: ""
         MURYA_ONNX_JSON_URL: ""
+        MURYA_VERIFY: ""
       # Release signing. Create this group in Codemagic or delete these lines.
       groups:
         - smartvillage_signing
@@ -58,28 +60,20 @@ workflows:
           echo "Build #: ${BUILD_NUMBER:-local}"
           ls -la
 
-      - name: Prepare Murya voice model (optional)
+      - name: Check Murya voice assets
         script: |
           set -e
-          MODEL_DIR="assets/models"
-          MODEL="$MODEL_DIR/murya.onnx"
-          CONFIG="$MODEL_DIR/murya.onnx.json"
+          MODEL="assets/models/murya.onnx"
+          CONFIG="assets/models/murya.onnx.json"
 
           if [ ! -f "$MODEL" ] && [ -n "${MURYA_ONNX_URL:-}" ]; then
-            echo "Downloading prebuilt quantised model from MURYA_ONNX_URL..."
-            mkdir -p "$MODEL_DIR"
+            echo "Committed graph missing; downloading MURYA_ONNX_URL..."
             curl -fL --retry 3 --connect-timeout 30 "$MURYA_ONNX_URL" -o "$MODEL"
-            if [ -n "${MURYA_ONNX_JSON_URL:-}" ]; then
-              curl -fL --retry 3 "$MURYA_ONNX_JSON_URL" -o "$CONFIG"
-            fi
           fi
 
           if [ ! -f "$MODEL" ]; then
-            echo "-----------------------------------------------"
-            echo "No Murya model in this checkout and MURYA_ONNX_URL is empty."
-            echo "Building WITHOUT the offline Hausa voice: the app falls back to"
-            echo "the device TTS voice for both languages. The build is valid."
-            echo "-----------------------------------------------"
+            echo "::warning::assets/models/murya.onnx is absent - the APK will"
+            echo "::warning::ship with the device-voice fallback only."
             exit 0
           fi
 
@@ -94,12 +88,20 @@ workflows:
             exit 1
           fi
           if [ ! -f "$CONFIG" ]; then
-            echo "error: $MODEL present but $CONFIG is missing." >&2
-            echo "The app needs the phoneme map to tokenise Hausa; commit the" >&2
-            echo "model config next to the graph." >&2
+            echo "error: $CONFIG is missing - the app needs the phoneme map." >&2
             exit 1
           fi
-          echo "OK: Murya graph $((SIZE / 1024 / 1024)) MB + config present"
+          echo "OK: $MODEL ($((SIZE / 1024 / 1024)) MB) + config present"
+
+          if [ "${MURYA_VERIFY:-}" = "1" ]; then
+            echo "MURYA_VERIFY=1 -> running a real inference check"
+            python3 -m venv .murya-venv
+            . .murya-venv/bin/activate
+            pip install --quiet -r tool/requirements-quantize.txt
+            python tool/verify_murya.py
+          else
+            echo "(set MURYA_VERIFY=1 to run tool/verify_murya.py in CI)"
+          fi
 
       - name: Static checks (no Dart SDK needed)
         script: python3 tool/check_dart.py

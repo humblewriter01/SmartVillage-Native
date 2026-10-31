@@ -143,6 +143,50 @@ void main() {
     });
   });
 
+  group('shipped model asset', () {
+    // Guards CI: the graph is 21.7 MB, so a truncated upload or an LFS pointer
+    // would otherwise only fail on a phone at speech time.
+    final model = File('assets/models/murya.onnx');
+
+    test('murya.onnx is committed', () {
+      expect(model.existsSync(), isTrue,
+          reason: 'assets/models/murya.onnx must be in the repository');
+    });
+
+    test('murya.onnx is a plausible INT8 graph', () {
+      if (!model.existsSync()) return;
+      final size = model.lengthSync();
+      expect(size, greaterThan(15 * 1024 * 1024),
+          reason: 'far smaller than the 21.7 MB quantised graph');
+      expect(size, lessThan(80 * 1024 * 1024),
+          reason: 'larger than the 77 MB FP32 upstream export');
+
+      final raf = model.openSync();
+      try {
+        final header = raf.readSync(32);
+        // ONNX is protobuf; field 1 (ir_version) is a varint, so byte 0 is 0x08.
+        expect(header.first, 0x08, reason: 'not an ONNX protobuf');
+        final ascii = String.fromCharCodes(header);
+        expect(ascii.contains('onnx'), isTrue,
+            reason: 'expected the onnx producer string in the header');
+      } finally {
+        raf.closeSync();
+      }
+    });
+
+    test('the graph and the config agree on speakers and rate', () {
+      if (!model.existsSync()) return;
+      final config = MuryaConfig.parse(
+        File('assets/models/murya.onnx.json').readAsStringSync(),
+      );
+      expect(config.sampleRate, 22050);
+      expect(config.numSpeakers, 8);
+      expect(config.speakers.length, 8);
+      expect(config.defaultSpeakerName, 'M1');
+      expect(config.phonemeIdMap.length, greaterThanOrEqualTo(42));
+    });
+  });
+
   group('WAV encoding', () {
     test('writes a valid 16-bit mono header', () {
       final samples = <double>[0.0, 0.5, -0.5, 1.5, -1.5];

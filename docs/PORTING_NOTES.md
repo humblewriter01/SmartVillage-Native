@@ -87,3 +87,11 @@ eight speakers, which changed four things compared with the earlier scaffold:
 4. **The graph is quantised to INT8** (`tool/quantize_murya.py`, QDQ, ~21.7 MB
    from 77.1 MB) and verified by running a real Hausa phrase through ONNX
    Runtime before it is accepted.
+
+## 5. Repository layout change
+
+The project started inside `smartvillage_flutter/` and was moved to the
+repository root (commit `fa7f318`) so Codemagic can pick up `codemagic.yaml`,
+`pubspec.yaml` and `android/` without a working directory. All paths in this
+document are now relative to the repository root; `tool/` and `test/` moved with
+it unchanged.

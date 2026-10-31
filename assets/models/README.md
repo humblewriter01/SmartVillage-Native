@@ -6,12 +6,26 @@ Three files belong in this folder:
 | --- | --- | --- |
 | `murya.onnx.json` | **committed** | Piper config: `phoneme_id_map`, 22 050 Hz, inference scales, 8-speaker map. |
 | `MODEL_ATTRIBUTION.txt` | **committed** | CC BY-NC-SA 4.0 credit for the weights. |
-| `murya.onnx` | **~21.7 MB, must be added** | INT8 ONNX graph. Either commit it or let CI fetch it (see below). |
+| `murya.onnx` | **committed** (22,745,309 B) | INT8 QDQ ONNX graph (`onnx.quantize 0.1.0`, opset 15). |
 
-`pubspec.yaml` already registers this directory (`assets: - assets/models/`), so
-once the graph is here `flutter pub get` bundles it and `HybridTtsService`
-starts the offline Hausa voice automatically. If the file is absent the app
-still runs and speaks through the device voice.
+`pubspec.yaml` registers this directory (`assets: - assets/models/`), so
+`flutter pub get` bundles the graph and `HybridTtsService` starts the offline
+Hausa voice automatically. If the file is ever removed the app still runs and
+speaks through the device voice.
+
+## Verify it before shipping
+
+```bash
+pip install -r tool/requirements-quantize.txt
+python3 tool/verify_murya.py --wav /tmp/murya.wav
+#   --threads 1   emulate a single-core phone
+#   --speaker N   try another voice (0-7)
+```
+
+The script feeds five Hausa sentences through the app's own tokenizer and fails
+if the audio is silent, clipped, or an implausible length. Current result:
+`PASS`, 152–370 ms per sentence, RMS 0.06–0.08, peak < 0.38, no clipping, and
+the eight speakers produce audibly different output.
 
 > **Licence:** the weights are CC BY-NC-SA 4.0 — non-commercial, attribution,
 > share-alike. Commercial use needs a separate licence from the author. See
@@ -19,17 +33,10 @@ still runs and speaks through the device voice.
 
 ## Getting `murya.onnx`
 
-### Option A — let CI fetch a prebuilt file
-
-Set `MURYA_ONNX_URL` (and, if needed, `MURYA_ONNX_JSON_URL`) in Codemagic. The
-`Prepare Murya voice model` step in `codemagic.yaml` downloads it if it is not
-already committed, validates the ONNX magic byte and size, and fails clearly if
-the download is truncated.
-
-### Option B — quantise the upstream release yourself (recommended)
+### Only if the graph has to be rebuilt — quantise the upstream release
 
 ```bash
-cd smartvillage_flutter
+# from the repository root
 
 # 1. upstream FP32 weights (77.1 MB)
 curl -L -o model.onnx      https://huggingface.co/adab-tech/murya-piper-hausa-tts/resolve/main/model.onnx

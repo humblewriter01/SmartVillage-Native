@@ -200,4 +200,85 @@ class TtsChunker {
     }
     return total == 0 ? 0 : english / total;
   }
+
+  /// Longest run handed to Murya in a single request.
+  ///
+  /// Measured on the shipped INT8 graph: ~3 ms per token on one x86 thread, and
+  /// a low-end Cortex-A53 phone is roughly 4-8x slower, so ~250 characters is
+  /// where a request starts to approach the 2 s budget. Splitting here keeps
+  /// every request inside the budget *and* lets playback start sooner.
+  static const int maxCharsPerRequest = 250;
+
+  /// Splits a Hausa run into pieces of at most [maxChars] characters.
+  ///
+  /// Order of preference: sentence boundary, then clause (comma/semicolon),
+  /// then a plain word wrap. Everything is greedy, so the number of requests
+  /// stays as low as possible. Public so the tests can pin the behaviour.
+  static List<TtsChunk> splitForSynthesis(
+    TtsChunk chunk, {
+    int maxChars = maxCharsPerRequest,
+  }) {
+    final text = chunk.text.trim();
+    if (text.length <= maxChars) return <TtsChunk>[chunk];
+
+    final pieces = <String>[];
+    final buffer = StringBuffer();
+
+    void flush() {
+      final value = buffer.toString().trim();
+      if (value.isNotEmpty) pieces.add(value);
+      buffer.clear();
+    }
+
+    void add(String raw) {
+      final value = raw.trim();
+      if (value.isEmpty) return;
+      if (value.length > maxChars) {
+        flush();
+        pieces.addAll(_wrapWords(value, maxChars));
+        return;
+      }
+      if (buffer.length > 0 && buffer.length + 1 + value.length > maxChars) {
+        flush();
+      }
+      if (buffer.length > 0) buffer.write(' ');
+      buffer.write(value);
+    }
+
+    // `.allMatches` keeps the terminator attached to its sentence so the split
+    // does not silently swallow question marks.
+    for (final match in RegExp(r'[^.!?]+[.!?]*').allMatches(text)) {
+      final sentence = (match.group(0) ?? '').trim();
+      if (sentence.isEmpty) continue;
+      if (sentence.length <= maxChars) {
+        add(sentence);
+      } else {
+        for (final clause in sentence.split(RegExp(r'[,;:]'))) {
+          add(clause);
+        }
+      }
+    }
+    flush();
+
+    return pieces
+        .map((piece) => TtsChunk(text: piece, language: chunk.language))
+        .toList(growable: false);
+  }
+
+  /// Last-resort wrap: never exceed [maxChars] even without punctuation.
+  static List<String> _wrapWords(String text, int maxChars) {
+    final lines = <String>[];
+    final line = StringBuffer();
+    for (final word in text.split(RegExp(r'\s+'))) {
+      if (word.isEmpty) continue;
+      if (line.length > 0 && line.length + 1 + word.length > maxChars) {
+        lines.add(line.toString());
+        line.clear();
+      }
+      if (line.length > 0) line.write(' ');
+      line.write(word);
+    }
+    if (line.length > 0) lines.add(line.toString());
+    return lines;
+  }
 }
