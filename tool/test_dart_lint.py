@@ -10,11 +10,17 @@ the very bug classes they were written for.
 
 import pathlib
 import sys
+import tempfile
 import unittest
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
-from dart_lint import scan_literal_duplicates, scan_string_literals  # noqa: E402
+from check_dart import check_icons  # noqa: E402
+from dart_lint import (  # noqa: E402
+    mask_non_code,
+    scan_literal_duplicates,
+    scan_string_literals,
+)
 
 
 class StringLiteralTests(unittest.TestCase):
@@ -96,6 +102,47 @@ class LiteralDuplicateTests(unittest.TestCase):
         self.assertEqual(scan_literal_duplicates(source), [])
 
 
+class IconCheckTests(unittest.TestCase):
+    """`Icons.boil` failed only at `flutter build apk`; catch it locally."""
+
+    def _check(self, source: str):
+        with tempfile.TemporaryDirectory() as directory:
+            path = pathlib.Path(directory) / "sample.dart"
+            path.write_text(source, encoding="utf-8")
+            return check_icons([path])
+
+    def test_unknown_icon_is_flagged(self):
+        problems = self._check("Widget f() => Icon(Icons.boil);\n")
+        self.assertEqual(len(problems), 1)
+        self.assertIn("Icons.boil does not exist", problems[0])
+
+    def test_real_icons_pass(self):
+        source = "Widget f() => Icon(Icons.check);\nIcon g() => Icon(Icons.water_drop);\n"
+        self.assertEqual(self._check(source), [])
+
+    def test_icon_named_in_a_comment_is_ignored(self):
+        source = "// there is no Icons.boil any more\nIcon f() => Icon(Icons.water_drop);\n"
+        self.assertEqual(self._check(source), [])
+
+    def test_icon_named_in_a_string_is_ignored(self):
+        source = "String f() => 'Icons.boil is not real';\n"
+        self.assertEqual(self._check(source), [])
+
+
+class MaskTests(unittest.TestCase):
+    def test_mask_preserves_line_numbers(self):
+        source = "// comment\nfinal s = 'text';\nfinal t = 1;\n"
+        masked = mask_non_code(source)
+        self.assertEqual(source.count("\n"), masked.count("\n"))
+        self.assertEqual(len(source), len(masked))
+
+    def test_mask_blanks_string_contents(self):
+        self.assertNotIn("text", mask_non_code("final s = 'text';\n"))
+
+    def test_mask_keeps_code(self):
+        self.assertIn("Icons.check", mask_non_code("Icon(Icons.check),\n"))
+
+
 class RepositoryTests(unittest.TestCase):
     """The real tree must stay clean — this is the check CI relies on."""
 
@@ -106,6 +153,11 @@ class RepositoryTests(unittest.TestCase):
         )
         self.assertEqual(scan_literal_duplicates(source), [])
         self.assertEqual(scan_string_literals(source), [])
+
+    def test_every_icon_reference_exists(self):
+        root = pathlib.Path(__file__).resolve().parent.parent
+        files = sorted((root / "lib").rglob("*.dart"))
+        self.assertEqual(check_icons(files), [])
 
     def test_soil_service_strings_are_well_formed(self):
         root = pathlib.Path(__file__).resolve().parent.parent

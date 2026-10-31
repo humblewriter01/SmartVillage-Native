@@ -265,7 +265,10 @@ class _WaterResultPanel extends StatelessWidget {
                     ? state.t('cleanWater')
                     : state.t('notCleanWater'),
                 color: color,
-                icon: result.isClean ? Icons.check : Icons.boil,
+                // No `Icons.boil` exists; a flame reads as "boil it".
+                icon: result.isClean
+                    ? Icons.check
+                    : Icons.local_fire_department,
               ),
               const SizedBox(width: 6),
               Pill(
