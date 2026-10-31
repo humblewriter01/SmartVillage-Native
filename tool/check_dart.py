@@ -2,15 +2,25 @@
 """Lightweight structural sanity check for the Dart sources.
 
 The CI/real build uses `flutter analyze`; this script exists so the codebase can
-be validated in environments where the Dart SDK is unavailable. It strips
-comments and string literals, then verifies that brackets balance and that no
-obvious template artefacts (e.g. unbalanced quotes) slipped in.
+be validated in environments where the Dart SDK is unavailable. It checks:
+
+* bracket balance (comments and string literals stripped),
+* that every relative import resolves and is actually used,
+* string literals that terminate early (an unescaped Hausa apostrophe such as
+  `sa'o'i`), are unterminated, or use an invalid escape,
+* duplicate elements in `Set<...>{...}` literals and duplicate string keys in
+  map literals.
+
+The last two are hard compile errors and are the ones that broke the first
+`flutter build apk`, so they are checked explicitly: see `dart_lint.py`.
 """
 from __future__ import annotations
 
 import pathlib
 import re
 import sys
+
+from dart_lint import scan_literal_duplicates, scan_string_literals
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SOURCE_DIRS = ("lib", "test")
@@ -145,6 +155,19 @@ def check_imports(files: list[pathlib.Path]) -> list[str]:
     return problems
 
 
+def check_literals(files: list[pathlib.Path]) -> list[str]:
+    """String-literal validation plus duplicate Set/Map entries."""
+    problems: list[str] = []
+    for path in files:
+        text = path.read_text(encoding="utf-8")
+        relative = path.relative_to(ROOT)
+        for line, message in scan_string_literals(text):
+            problems.append(f"{relative}:{line}: {message}")
+        for line, message in scan_literal_duplicates(text):
+            problems.append(f"{relative}:{line}: {message}")
+    return problems
+
+
 def main() -> int:
     problems: list[str] = []
     files = sorted(
@@ -164,14 +187,15 @@ def main() -> int:
                 problems.append(f"{path.relative_to(ROOT)}: missing import {match.group(1)}")
 
     problems.extend(check_imports(files))
+    problems.extend(check_literals(files))
 
     if problems:
         print("\n".join(problems))
         print(f"\n{len(problems)} problem(s) in {len(files)} files")
         return 1
     print(
-        f"OK — {len(files)} Dart files (lib + test), brackets balanced, "
-        "imports resolve, no unused relative imports"
+        f"OK — {len(files)} Dart files (lib + test): brackets balanced, "
+        "imports resolve, strings well-formed, no duplicate literal entries"
     )
     return 0
 

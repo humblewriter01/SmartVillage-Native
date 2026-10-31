@@ -104,8 +104,10 @@ class SoilService {
       moistureScore = 75;
       moistureAdviceEn =
           'Moisture level ($moistureLabel%) is slightly below optimal range (${_fmt(req.optimalMoistureMin)}%-${_fmt(req.optimalMoistureMax)}%). Schedule a light furrow irrigation within the next 48 hours to prevent moisture stress during critical growth stages.';
+      // Double quotes on purpose: Hausa "sa'o'i" contains two apostrophes, so
+      // a single-quoted literal would terminate the string at the first one.
       moistureAdviceHa =
-          'Laimar ƙasa ($moistureLabel%) ta ɗan yi ƙasa da buƙata (${_fmt(req.optimalMoistureMin)}%-${_fmt(req.optimalMoistureMax)}%). Yi shirin shayarwa a cikin sa'o\'i 48 masu zuwa don shuka ba ta dakata da girma ba.';
+          "Laimar ƙasa ($moistureLabel%) ta ɗan yi ƙasa da buƙata (${_fmt(req.optimalMoistureMin)}%-${_fmt(req.optimalMoistureMax)}%). Yi shirin shayarwa a cikin sa'o'i 48 masu zuwa don shuka ba ta dakata da girma ba.";
     } else if (cropId != 'rice' && moisture > 80) {
       moistureStatus = 'waterlogged';
       moistureTextEn = 'Waterlogged / Flooded Soil';
