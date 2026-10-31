@@ -336,17 +336,22 @@ python3 tool/check_dart.py    # lib/ and test/
 One-time setup in the Codemagic UI:
 
 1. Add the repository; the working directory is the repo root, and
-   `codemagic.yaml` is picked up automatically.
+   `codemagic.yaml` is picked up automatically. Nothing else is required — the
+   Murya graph is committed, so there is no asset download step and no build
+   input to configure.
 2. **Signing (optional)** — create an environment group `smartvillage_signing`
    with `CM_KEYSTORE` (base64 of the .jks), `CM_KEYSTORE_PASSWORD`,
-   `CM_KEY_ALIAS`, `CM_KEY_PASSWORD`. `android/app/build.gradle` uses it when
-   `android/key.properties` exists and otherwise falls back to the debug key,
-   so the build never breaks for lack of a keystore.
-3. **Murya voice** — already committed, so nothing to configure. The CI step
-   still validates it (size, ONNX magic byte, config presence) and only falls
-   back to downloading `MURYA_ONNX_URL` if the graph is ever removed. Set
-   `MURYA_VERIFY: "1"` in the env group to run the full
-   `tool/verify_murya.py` inference check during the build (adds ~1 min).
+   `CM_KEY_ALIAS`, `CM_KEY_PASSWORD`, then uncomment the two `groups:` lines
+   under `environment:` in `codemagic.yaml`. `android/app/build.gradle` uses the
+   keystore when `android/key.properties` exists and otherwise falls back to the
+   debug key, so the build never breaks for lack of one.
+3. **Email notifications** — `publishing.email` sends build results to the
+   address in `codemagic.yaml`; an external address has to confirm Codemagic's
+   one-off opt-in email first. Remove the `publishing:` block to silence it.
+
+`codemagic.yaml` deliberately keeps `environment.vars` empty of placeholder
+keys: Codemagic's YAML validator rejects empty-string values, and only
+`recipients` / `notify` are valid inside `publishing.email`.
 
 Signing/real-device notes: `minSdk 24`, `targetSdk 34`, `compileSdk 34`,
 JVM 17, Gradle 8.4, AGP 8.3.2.
