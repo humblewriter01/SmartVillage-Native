@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Abuja",
+    "state": "FCT",
+    "lat": 9.0579,
+    "lon": 7.4951
+  },
+  {
+    "name": "Kano",
+    "state": "Kano",
+    "lat": 12.0022,
+    "lon": 8.592
+  },
+  {
+    "name": "Kaduna",
+    "state": "Kaduna",
+    "lat": 10.5105,
+    "lon": 7.4165
+  },
+  {
+    "name": "Ibadan",
+    "state": "Oyo",
+    "lat": 7.3775,
+    "lon": 3.947
+  },
+  {
+    "name": "Jos",
+    "state": "Plateau",
+    "lat": 9.8965,
+    "lon": 8.8583
+  },
+  {
+    "name": "Maiduguri",
+    "state": "Borno",
+    "lat": 11.8311,
+    "lon": 13.151
+  },
+  {
+    "name": "Sokoto",
+    "state": "Sokoto",
+    "lat": 13.0059,
+    "lon": 5.2476
+  },
+  {
+    "name": "Enugu",
+    "state": "Enugu",
+    "lat": 6.4584,
+    "lon": 7.5464
+  },
+  {
+    "name": "Port Harcourt",
+    "state": "Rivers",
+    "lat": 4.8156,
+    "lon": 7.0498
+  },
+  {
+    "name": "Lagos",
+    "state": "Lagos",
+    "lat": 6.5244,
+    "lon": 3.3792
+  }
+]

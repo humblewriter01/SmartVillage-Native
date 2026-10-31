@@ -1,0 +1,567 @@
+[
+  {
+    "id": "onion",
+    "name": "Onion",
+    "hausa_name": "Albasa",
+    "seasonType": "both",
+    "plantingStartMonth": 11,
+    "plantingStartDay": 1,
+    "plantingEndMonth": 12,
+    "plantingEndDay": 20,
+    "harvestStartMonth": 3,
+    "harvestEndMonth": 4,
+    "plantingWindows": [
+      {
+        "seasonLabelEn": "Dry Season (Irrigated / Rani)",
+        "seasonLabelHa": "Noman Rani (Shayarwa)",
+        "startMonth": 11,
+        "startDay": 1,
+        "endMonth": 12,
+        "endDay": 20
+      },
+      {
+        "seasonLabelEn": "Rainy Season (Damina)",
+        "seasonLabelHa": "Noman Damina",
+        "startMonth": 5,
+        "startDay": 1,
+        "endMonth": 6,
+        "endDay": 30
+      }
+    ],
+    "harvestWindows": [
+      {
+        "seasonLabelEn": "Dry Season Harvest",
+        "seasonLabelHa": "Girbin Rani",
+        "startMonth": 3,
+        "endMonth": 4
+      },
+      {
+        "seasonLabelEn": "Rainy Season Harvest",
+        "seasonLabelHa": "Girbin Damina",
+        "startMonth": 9,
+        "endMonth": 9
+      }
+    ],
+    "carePeriodWeeks": 4,
+    "idealRainfall": "0 - 50 mm (Furrow irrigation) / 400 - 700 mm (Damina well-drained)",
+    "idealTemp": "15°C - 30°C",
+    "advice": "For dry season, transplant nursery seedlings in Nov–Dec for Mar–Apr harvest. For rainy season (Damina), transplant in May–Jun on high raised beds with excellent drainage to harvest in September.",
+    "advice_hausa": "A lokacin rani, a dashe albasa a Nuwamba/Disamba don girbi a Maris/Afirilu. A lokacin damina, a dashe a Mayu/Yuni a kan kunya mai tudu don girbi a watan Satumba.",
+    "babyPlantCare": "Maintain steady moisture without waterlogging. Weed early at 2-3 weeks; in rainy season apply preventative copper fungicide against purple blotch.",
+    "babyPlantCare_hausa": "Kula da samun laima ba tare da ruwa ya kwanta ba. Yi ciyawa a mako na 2-3; a damina a fesa maganin kariya daga rubewar ganye (purple blotch)."
+  },
+  {
+    "id": "maize",
+    "name": "Maize",
+    "hausa_name": "Masara",
+    "seasonType": "both",
+    "plantingStartMonth": 5,
+    "plantingStartDay": 15,
+    "plantingEndMonth": 6,
+    "plantingEndDay": 20,
+    "harvestStartMonth": 9,
+    "harvestEndMonth": 10,
+    "plantingWindows": [
+      {
+        "seasonLabelEn": "Rainy Season (Damina)",
+        "seasonLabelHa": "Noman Damina",
+        "startMonth": 5,
+        "startDay": 15,
+        "endMonth": 6,
+        "endDay": 20
+      },
+      {
+        "seasonLabelEn": "Dry Season (Fadama / Irrigated)",
+        "seasonLabelHa": "Noman Fadama da Rani",
+        "startMonth": 11,
+        "startDay": 15,
+        "endMonth": 12,
+        "endDay": 31
+      }
+    ],
+    "harvestWindows": [
+      {
+        "seasonLabelEn": "Rainy Season Harvest",
+        "seasonLabelHa": "Girbin Damina",
+        "startMonth": 9,
+        "endMonth": 10
+      },
+      {
+        "seasonLabelEn": "Dry Season Harvest",
+        "seasonLabelHa": "Girbin Rani",
+        "startMonth": 3,
+        "endMonth": 5
+      }
+    ],
+    "carePeriodWeeks": 3,
+    "idealRainfall": "600 - 900 mm / Irrigated furrow",
+    "idealTemp": "21°C - 32°C",
+    "advice": "Wait for at least 2 consecutive soaking rains (>25mm total) before planting in Damina. For dry season irrigated maize, sow in Nov-Dec for harvest in Mar-May.",
+    "advice_hausa": "A jira a samu ruwan sama mai ƙarfi sau 2 a jere kafin a shuka masara a damina. Don noman rani kuma, a shuka a Nuwamba zuwa Disamba don girbi a Maris zuwa Mayu.",
+    "babyPlantCare": "Weed at 2 and 5 weeks after sprouting. Apply basal NPK 15:15:15 at planting, and topdress with Urea at 4 weeks.",
+    "babyPlantCare_hausa": "Yi ciyawa a mako na 2 da na 5. Sanya takin NPK yayin shuka, sannan a sanya takin Urea a mako na 4."
+  },
+  {
+    "id": "tomato",
+    "name": "Tomato",
+    "hausa_name": "Tumatir",
+    "seasonType": "both",
+    "plantingStartMonth": 11,
+    "plantingStartDay": 15,
+    "plantingEndMonth": 2,
+    "plantingEndDay": 28,
+    "harvestStartMonth": 2,
+    "harvestEndMonth": 5,
+    "plantingWindows": [
+      {
+        "seasonLabelEn": "Dry Season (Fadama / Irrigated)",
+        "seasonLabelHa": "Noman Fadama da Rani",
+        "startMonth": 11,
+        "startDay": 15,
+        "endMonth": 2,
+        "endDay": 28
+      },
+      {
+        "seasonLabelEn": "Rainy Season (Damina)",
+        "seasonLabelHa": "Noman Damina",
+        "startMonth": 5,
+        "startDay": 15,
+        "endMonth": 7,
+        "endDay": 15
+      }
+    ],
+    "harvestWindows": [
+      {
+        "seasonLabelEn": "Dry Season Harvest",
+        "seasonLabelHa": "Girbin Rani",
+        "startMonth": 2,
+        "endMonth": 5
+      },
+      {
+        "seasonLabelEn": "Rainy Season Harvest",
+        "seasonLabelHa": "Girbin Damina",
+        "startMonth": 8,
+        "endMonth": 10
+      }
+    ],
+    "carePeriodWeeks": 3,
+    "idealRainfall": "Furrow / Drip irrigation or well-drained raised beds",
+    "idealTemp": "18°C - 30°C",
+    "advice": "Dry season planting reduces severe early and late blight pressure. For rainy season, transplant nursery seedlings onto high ridges with good drainage in May–July for August–October harvest.",
+    "advice_hausa": "Nomawa a lokacin rani yana rage cututtuka sosai. A lokacin damina, a dashe a kan manyan kunyoyi masu magudanar ruwa a watannin Mayu zuwa Yuli don girbi a Agusta zuwa Oktoba.",
+    "babyPlantCare": "Stake young plants with bamboo or reeds at 3 weeks to keep foliage off wet soil and mulch heavily with dry grass.",
+    "babyPlantCare_hausa": "Ɗaura jikin sandar kara a mako na 3 don ganye ya nisanci ƙasa mai laima, kuma a shimfiɗa ciyawa a ƙasa."
+  },
+  {
+    "id": "rice",
+    "name": "Rice (Lowland / Upland)",
+    "hausa_name": "Shinkafa",
+    "seasonType": "both",
+    "plantingStartMonth": 6,
+    "plantingStartDay": 15,
+    "plantingEndMonth": 7,
+    "plantingEndDay": 25,
+    "harvestStartMonth": 10,
+    "harvestEndMonth": 11,
+    "plantingWindows": [
+      {
+        "seasonLabelEn": "Rainy Season (Damina / Fadama)",
+        "seasonLabelHa": "Noman Damina / Fadama",
+        "startMonth": 6,
+        "startDay": 15,
+        "endMonth": 7,
+        "endDay": 25
+      },
+      {
+        "seasonLabelEn": "Dry Season Irrigated Rice (Shinkafar Rani)",
+        "seasonLabelHa": "Noman Shinkafar Rani (Fadama)",
+        "startMonth": 12,
+        "startDay": 1,
+        "endMonth": 2,
+        "endDay": 20
+      }
+    ],
+    "harvestWindows": [
+      {
+        "seasonLabelEn": "Rainy Season Harvest",
+        "seasonLabelHa": "Girbin Damina",
+        "startMonth": 10,
+        "endMonth": 11
+      },
+      {
+        "seasonLabelEn": "Dry Season Harvest",
+        "seasonLabelHa": "Girbin Rani",
+        "startMonth": 4,
+        "endMonth": 5
+      }
+    ],
+    "carePeriodWeeks": 4,
+    "idealRainfall": "900 - 1400 mm / Irrigated basin",
+    "idealTemp": "24°C - 32°C",
+    "advice": "Direct seed in puddled lowlands or transplant 21-day nursery seedlings when steady flooding is established. In dry season (Fadama), transplant in Dec–Feb for abundant April–May harvest.",
+    "advice_hausa": "Dashe shinkafar bayan kwanaki 21 daga reno yayin da ruwa ya fara tsayawa a fadama. A noman rani kuma, a dashe a Disamba zuwa Fabrairu don girbi a Afirilu zuwa Mayu.",
+    "babyPlantCare": "Maintain 3-5 cm water layer in lowland paddies to suppress weeds naturally. Apply Urea in two splits.",
+    "babyPlantCare_hausa": "Kula da tsayin ruwa na santimita 3-5 a fadama don hana ciyawa fita. Zuba takin Urea sau biyu."
+  },
+  {
+    "id": "sorghum",
+    "name": "Sorghum",
+    "hausa_name": "Dawa",
+    "seasonType": "rainfed",
+    "plantingStartMonth": 5,
+    "plantingStartDay": 20,
+    "plantingEndMonth": 6,
+    "plantingEndDay": 15,
+    "harvestStartMonth": 10,
+    "harvestEndMonth": 11,
+    "plantingWindows": [
+      {
+        "seasonLabelEn": "Rainy Season (Damina)",
+        "seasonLabelHa": "Noman Damina",
+        "startMonth": 5,
+        "startDay": 20,
+        "endMonth": 6,
+        "endDay": 15
+      }
+    ],
+    "harvestWindows": [
+      {
+        "seasonLabelEn": "Rainy Season Harvest",
+        "seasonLabelHa": "Girbin Damina",
+        "startMonth": 10,
+        "endMonth": 11
+      }
+    ],
+    "carePeriodWeeks": 4,
+    "idealRainfall": "450 - 750 mm",
+    "idealTemp": "25°C - 34°C",
+    "advice": "Sorghum can withstand brief early dry spells better than maize, but needs moist seedbeds for uniform germination.",
+    "advice_hausa": "Dawa tana jure ɗan fari fiye da masara, amma tana buƙatar ƙasa mai laima don dukkan irin ya fito tare.",
+    "babyPlantCare": "Thin seedlings to 2-3 sturdy stalks per stand at 3 weeks. Watch for stem borer and shoot fly attacks.",
+    "babyPlantCare_hausa": "Rage cunkoson shuka zuwa karan 2-3 a kowanne rami bayan mako 3. Kula da tsutsar karan dawa."
+  },
+  {
+    "id": "cowpea",
+    "name": "Cowpeas (Beans)",
+    "hausa_name": "Wake",
+    "seasonType": "both",
+    "plantingStartMonth": 6,
+    "plantingStartDay": 1,
+    "plantingEndMonth": 7,
+    "plantingEndDay": 15,
+    "harvestStartMonth": 10,
+    "harvestEndMonth": 11,
+    "plantingWindows": [
+      {
+        "seasonLabelEn": "Rainy Season (Damina)",
+        "seasonLabelHa": "Noman Damina",
+        "startMonth": 6,
+        "startDay": 1,
+        "endMonth": 7,
+        "endDay": 15
+      },
+      {
+        "seasonLabelEn": "Dry Season / Fadama (Waken Rani)",
+        "seasonLabelHa": "Noman Fadama da Rani",
+        "startMonth": 1,
+        "startDay": 15,
+        "endMonth": 2,
+        "endDay": 28
+      }
+    ],
+    "harvestWindows": [
+      {
+        "seasonLabelEn": "Rainy Season Harvest",
+        "seasonLabelHa": "Girbin Damina",
+        "startMonth": 10,
+        "endMonth": 11
+      },
+      {
+        "seasonLabelEn": "Dry Season Harvest",
+        "seasonLabelHa": "Girbin Rani",
+        "startMonth": 4,
+        "endMonth": 5
+      }
+    ],
+    "carePeriodWeeks": 3,
+    "idealRainfall": "400 - 650 mm / Furrow irrigation for dry season",
+    "idealTemp": "24°C - 32°C",
+    "advice": "Can be planted as sole crop in late June or intercropped with sorghum. For dry season fadama cowpea, plant in Jan-Feb with light irrigation for April-May harvest.",
+    "advice_hausa": "Za a iya shuka shi kaɗai a ƙarshen Yuni ko a haɗa da dawa. A noman rani a fadama, a shuka a Janairu zuwa Fabrairu don girbi a Afirilu zuwa Mayu.",
+    "babyPlantCare": "Protect against maruca pod borer and aphids starting at flowering with organic neem or registered bio-pesticide.",
+    "babyPlantCare_hausa": "Kare furen wake daga kwarin maruca da kudan wake ta amfani da ruwan dogon yaro yayin fitar fure."
+  },
+  {
+    "id": "groundnut",
+    "name": "Groundnuts",
+    "hausa_name": "Gyada",
+    "seasonType": "rainfed",
+    "plantingStartMonth": 5,
+    "plantingStartDay": 25,
+    "plantingEndMonth": 6,
+    "plantingEndDay": 20,
+    "harvestStartMonth": 9,
+    "harvestEndMonth": 11,
+    "plantingWindows": [
+      {
+        "seasonLabelEn": "Rainy Season (Damina)",
+        "seasonLabelHa": "Noman Damina",
+        "startMonth": 5,
+        "startDay": 25,
+        "endMonth": 6,
+        "endDay": 20
+      }
+    ],
+    "harvestWindows": [
+      {
+        "seasonLabelEn": "Rainy Season Harvest",
+        "seasonLabelHa": "Girbin Damina",
+        "startMonth": 9,
+        "endMonth": 11
+      }
+    ],
+    "carePeriodWeeks": 3,
+    "idealRainfall": "500 - 800 mm",
+    "idealTemp": "25°C - 30°C",
+    "advice": "Plant in well-drained sandy-loam ridges. Treat seeds with fungicide before planting to prevent seedling rot.",
+    "advice_hausa": "Shuka a kan kunya mai yashi da laushi. Wanke irin da maganin kwari da fungi kafin shukawa.",
+    "babyPlantCare": "Earthing up (hilling ridges) at 4-5 weeks encourages pegging. Avoid weeding once pegs enter soil.",
+    "babyPlantCare_hausa": "Haɗa ƙasa a jikin kunya a mako 4-5 domin sauƙaƙa shigar 'ya'yan gyada cikin ƙasa."
+  },
+  {
+    "id": "wheat",
+    "name": "Wheat (Irrigated Winter)",
+    "hausa_name": "Alkama",
+    "seasonType": "irrigated_dry",
+    "plantingStartMonth": 11,
+    "plantingStartDay": 10,
+    "plantingEndMonth": 12,
+    "plantingEndDay": 15,
+    "harvestStartMonth": 3,
+    "harvestEndMonth": 4,
+    "plantingWindows": [
+      {
+        "seasonLabelEn": "Irrigated Winter / Harmattan",
+        "seasonLabelHa": "Noman Rani da Hunturu",
+        "startMonth": 11,
+        "startDay": 10,
+        "endMonth": 12,
+        "endDay": 15
+      }
+    ],
+    "harvestWindows": [
+      {
+        "seasonLabelEn": "Dry Season Harvest",
+        "seasonLabelHa": "Girbin Rani",
+        "startMonth": 3,
+        "endMonth": 4
+      }
+    ],
+    "carePeriodWeeks": 3,
+    "idealRainfall": "Irrigated (Harmattan cool cycle)",
+    "idealTemp": "12°C - 26°C",
+    "advice": "Must be planted before December 15th so heading coincides with cool January Harmattan nights for full grain filling.",
+    "advice_hausa": "Dole ne a shuka kafin 15 ga Disamba domin furen alkama ya samu sanyin hunturu a watan Janairu.",
+    "babyPlantCare": "Irrigate immediately after broadcasting seed, then irrigate every 7-10 days depending on soil type.",
+    "babyPlantCare_hausa": "Shayar da gona nan take bayan shuka, sannan a ci gaba da shayarwa kowanne kwanaki 7-10."
+  },
+  {
+    "id": "soybeans",
+    "name": "Soybeans",
+    "hausa_name": "Waken Soya",
+    "seasonType": "rainfed",
+    "plantingStartMonth": 6,
+    "plantingStartDay": 15,
+    "plantingEndMonth": 7,
+    "plantingEndDay": 15,
+    "harvestStartMonth": 10,
+    "harvestEndMonth": 11,
+    "plantingWindows": [
+      {
+        "seasonLabelEn": "Rainy Season (Damina)",
+        "seasonLabelHa": "Noman Damina",
+        "startMonth": 6,
+        "startDay": 15,
+        "endMonth": 7,
+        "endDay": 15
+      }
+    ],
+    "harvestWindows": [
+      {
+        "seasonLabelEn": "Rainy Season Harvest",
+        "seasonLabelHa": "Girbin Damina",
+        "startMonth": 10,
+        "endMonth": 11
+      }
+    ],
+    "carePeriodWeeks": 3,
+    "idealRainfall": "500 - 800 mm",
+    "idealTemp": "20°C - 30°C",
+    "advice": "Plant when rains are well established in late June to early July. Ensure shallow planting (2-3 cm deep) for rapid emergence.",
+    "advice_hausa": "A shuka a ƙarshen watan Yuni zuwa tsakiyar Yuli idan damina ta kafu sosai. Kada a binne irin da zurfi sosai don ya fito da sauri.",
+    "babyPlantCare": "Weed within the first 3-4 weeks before canopy closes. Inoculate seed with Rhizobium or apply basal SSP fertilizer.",
+    "babyPlantCare_hausa": "Yi ciyawa a makonni 3-4 na farko kafin ganye ya rufe gona. Sanya takin sinadarin phosphorus (SSP) yayin shuka."
+  },
+  {
+    "id": "cassava",
+    "name": "Cassava",
+    "hausa_name": "Rogo",
+    "seasonType": "rainfed",
+    "plantingStartMonth": 4,
+    "plantingStartDay": 1,
+    "plantingEndMonth": 5,
+    "plantingEndDay": 31,
+    "harvestStartMonth": 1,
+    "harvestEndMonth": 4,
+    "plantingWindows": [
+      {
+        "seasonLabelEn": "Start of Rains (Early Damina)",
+        "seasonLabelHa": "Farkon Damina",
+        "startMonth": 4,
+        "startDay": 1,
+        "endMonth": 5,
+        "endDay": 31
+      }
+    ],
+    "harvestWindows": [
+      {
+        "seasonLabelEn": "Matured Tubers Harvest",
+        "seasonLabelHa": "Girbin Rogo",
+        "startMonth": 1,
+        "endMonth": 4
+      }
+    ],
+    "carePeriodWeeks": 6,
+    "idealRainfall": "1000 - 1500 mm",
+    "idealTemp": "25°C - 32°C",
+    "advice": "Plant healthy, certified stem cuttings (20-25 cm long) at a 45-degree angle on ridges once steady rains begin in April or May.",
+    "advice_hausa": "Shuka yankan karan rogo masu lafiya (santimita 20-25) a karkace a kan kunya da zaran ruwan damina ya kafu a watan Afirilu ko Mayu.",
+    "babyPlantCare": "Keep weed-free for the first 3 months until foliage canopy closes. Mound loose soil around root base to encourage heavy tuber bulking.",
+    "babyPlantCare_hausa": "Kiyaye gona daga ciyawa a watanni 3 na farko har sai ganye ya rufe gona. Tattara kasa a gindin shuka yana taimaka wa dankalin yin kauri."
+  },
+  {
+    "id": "yam",
+    "name": "Yam",
+    "hausa_name": "Doya",
+    "seasonType": "rainfed",
+    "plantingStartMonth": 3,
+    "plantingStartDay": 15,
+    "plantingEndMonth": 4,
+    "plantingEndDay": 30,
+    "harvestStartMonth": 11,
+    "harvestEndMonth": 1,
+    "plantingWindows": [
+      {
+        "seasonLabelEn": "Early Mound Planting (Start of Rains)",
+        "seasonLabelHa": "Shuka a Kunkuna (Farkon Damina)",
+        "startMonth": 3,
+        "startDay": 15,
+        "endMonth": 4,
+        "endDay": 30
+      }
+    ],
+    "harvestWindows": [
+      {
+        "seasonLabelEn": "Dry Season Harvest (Senescence)",
+        "seasonLabelHa": "Girbin Rani",
+        "startMonth": 11,
+        "endMonth": 1
+      }
+    ],
+    "carePeriodWeeks": 5,
+    "idealRainfall": "1000 - 1400 mm",
+    "idealTemp": "25°C - 30°C",
+    "advice": "Plant healthy sprouted seed setts on giant mounds mulched with dry grass or leaves to protect tubers from intense early heat.",
+    "advice_hausa": "Shuka kwayar doya a kan manyan kunkuna tare da shimfida ciyawa a kai don kare ta daga zafin rana na farkon damina.",
+    "babyPlantCare": "Stake vines with tall sturdy poles (sandar kara) as soon as shoots reach 30 cm to optimize sunlight and prevent vine rot.",
+    "babyPlantCare_hausa": "Kafa sandar kara da zaran reshen ya kai santimita 30 don samun hasken rana da kare ganye daga rube a kasa."
+  },
+  {
+    "id": "pepper",
+    "name": "Pepper (Chili / Atarodo)",
+    "hausa_name": "Barkono",
+    "seasonType": "both",
+    "plantingStartMonth": 11,
+    "plantingStartDay": 15,
+    "plantingEndMonth": 2,
+    "plantingEndDay": 28,
+    "harvestStartMonth": 2,
+    "harvestEndMonth": 5,
+    "plantingWindows": [
+      {
+        "seasonLabelEn": "Dry Season (Fadama / Irrigated)",
+        "seasonLabelHa": "Noman Fadama da Rani",
+        "startMonth": 11,
+        "startDay": 15,
+        "endMonth": 2,
+        "endDay": 28
+      },
+      {
+        "seasonLabelEn": "Rainy Season (Damina)",
+        "seasonLabelHa": "Noman Damina",
+        "startMonth": 5,
+        "startDay": 15,
+        "endMonth": 6,
+        "endDay": 30
+      }
+    ],
+    "harvestWindows": [
+      {
+        "seasonLabelEn": "Dry Season Harvest",
+        "seasonLabelHa": "Girbin Rani",
+        "startMonth": 2,
+        "endMonth": 5
+      },
+      {
+        "seasonLabelEn": "Rainy Season Harvest",
+        "seasonLabelHa": "Girbin Damina",
+        "startMonth": 8,
+        "endMonth": 10
+      }
+    ],
+    "carePeriodWeeks": 4,
+    "idealRainfall": "600 - 1200 mm / Furrow or drip irrigation",
+    "idealTemp": "20°C - 32°C",
+    "advice": "Transplant 30-40 day nursery seedlings in the cool late afternoon. Mulch heavily to retain moisture and suppress weeds.",
+    "advice_hausa": "Dashe shukar reno mai kwanaki 30-40 da yamma lokacin sanyi. Sanya ciyawa a kasa don kiyaye laima da hana ciyawa fita.",
+    "babyPlantCare": "Water immediately after transplanting. Protect seedlings from aphids and thrips using neem spray to avoid leaf curl virus.",
+    "babyPlantCare_hausa": "Shayar da gona nan take bayan dashe. Kare kananan shuke-shuke daga kwarin fari da kudan ganye ta hanyar feshin ruwan dogon yaro."
+  },
+  {
+    "id": "millet",
+    "name": "Pearl Millet",
+    "hausa_name": "Gero",
+    "seasonType": "rainfed",
+    "plantingStartMonth": 6,
+    "plantingStartDay": 1,
+    "plantingEndMonth": 6,
+    "plantingEndDay": 20,
+    "harvestStartMonth": 9,
+    "harvestEndMonth": 11,
+    "plantingWindows": [
+      {
+        "seasonLabelEn": "Rainy Season (Damina)",
+        "seasonLabelHa": "Noman Damina",
+        "startMonth": 6,
+        "startDay": 1,
+        "endMonth": 6,
+        "endDay": 20
+      }
+    ],
+    "harvestWindows": [
+      {
+        "seasonLabelEn": "Rainy Season Harvest",
+        "seasonLabelHa": "Girbin Damina",
+        "startMonth": 9,
+        "endMonth": 11
+      }
+    ],
+    "carePeriodWeeks": 3,
+    "idealRainfall": "300 - 550 mm",
+    "idealTemp": "28°C - 36°C",
+    "advice": "Very fast maturing crop for drier northern belts (Katsina, Sokoto, Yobe, Borno). Plant shallowly (2-3 cm).",
+    "advice_hausa": "Amfanin gona mai saurin nuna a yankunan da ruwa bai cika yawa ba. Kada a binne irin da zurfi sosai.",
+    "babyPlantCare": "Keep fields completely clear of striga (witchweed) and grass weeds during the first 20 days.",
+    "babyPlantCare_hausa": "Tsaftace gona daga ciyawar wuta (kuduji) da sauran ciyayi a cikin kwanaki 20 na farko."
+  }
+]

@@ -1,0 +1,190 @@
+[
+  {
+    "id": "chicken",
+    "name": "Chicken",
+    "hausa_name": "Kaza",
+    "emoji": "🐔",
+    "commonSymptoms": [
+      "Greenish or bloody diarrhea",
+      "Twisted neck / neurological signs",
+      "Swollen head & eyes with discharge",
+      "Warty scabs on comb & wattle",
+      "Drop in egg production",
+      "Gasping & rattling breathing",
+      "Sudden death in flock"
+    ],
+    "commonSymptomsHausa": [
+      "Gudawa mai launin kore ko jini",
+      "Lankwasa wuya ko juyawar kai",
+      "Kumburin kai da ido mai ruwa",
+      "Kuraje ko ƙurji a zanko da wuya",
+      "Ragewar kwayayen kwai",
+      "Numfashi mai sautin gurnani",
+      "Mutuwar kaji ba gaira ba dalili"
+    ]
+  },
+  {
+    "id": "goat",
+    "name": "Goat",
+    "hausa_name": "Akuya",
+    "emoji": "🐐",
+    "commonSymptoms": [
+      "High fever & nasal discharge",
+      "Sores & ulcers around mouth",
+      "Foul watery diarrhea",
+      "Swollen hard painful udder",
+      "Severe limping & foul hoof smell",
+      "Swollen belly & gasping (bloat)",
+      "Pale gums & bottle jaw swelling"
+    ],
+    "commonSymptomsHausa": [
+      "Zazzabi mai zafi da majina a hanci",
+      "Gyambon baki da kuraje",
+      "Gudawa mai wari da ruwa-ruwa",
+      "Kumburin nono mai tauri da zafi",
+      "Dingo da wari a kofato",
+      "Kumburin ciki da wahalar numfashi",
+      "Kumburin maƙogwaro da rashin jini"
+    ]
+  },
+  {
+    "id": "sheep",
+    "name": "Sheep",
+    "hausa_name": "Tunkiya",
+    "emoji": "🐑",
+    "commonSymptoms": [
+      "Sores around mouth & nostrils",
+      "Profuse diarrhea & dehydration",
+      "Limping & separation of hoof wall",
+      "Swollen head & blueish tongue",
+      "Submandibular edema (bottle jaw)",
+      "Weight loss despite eating"
+    ],
+    "commonSymptomsHausa": [
+      "Gyambon baki da hanci",
+      "Gudawa mai tsanani da bushewar jiki",
+      "Dingo da rabuwar kofato",
+      "Kumburin kai da harshe mai launin shudi",
+      "Kumburin ƙarƙashin haba",
+      "Ramewa duk da cin abinci"
+    ]
+  },
+  {
+    "id": "cattle",
+    "name": "Cattle",
+    "hausa_name": "Saniya",
+    "emoji": "🐄",
+    "commonSymptoms": [
+      "Blisters on tongue, gums & hooves with drooling",
+      "Sudden high fever & blood from body openings",
+      "Severe anemia, lethargy & yellow eyes",
+      "Hot painful crackling swelling on thighs/shoulders",
+      "Hard swollen quarters with clotted milk",
+      "Severe progressive weight loss & rough coat"
+    ],
+    "commonSymptomsHausa": [
+      "Kumburin baki da kofato tare da yoyon yau",
+      "Zazzabi mai tsanani da fitar jini a jiki",
+      "Rashin jini da idanu masu launin rawaya",
+      "Kumburi mai zafi dake ƙara a cinyoyi",
+      "Taurin nono da madara mai dunƙulewa",
+      "Ramewa mai tsanani da gashi mai ƙaiƙayi"
+    ]
+  },
+  {
+    "id": "donkey",
+    "name": "Donkey",
+    "hausa_name": "Jaki",
+    "emoji": "🫏",
+    "commonSymptoms": [
+      "Severe rolling, pawing ground & belly pain (colic)",
+      "Rough dull coat, potbelly & weak stamina",
+      "Ulcerated cord-like lumps along legs & neck",
+      "Crusty pus & deep cracks between hoof bulbs",
+      "Fever, dark red urine & profound weakness"
+    ],
+    "commonSymptomsHausa": [
+      "Birgima da buga ƙasa saboda ciwon ciki (colic)",
+      "Ramewa, babban ciki da rashin ƙarfi",
+      "Gyambon layi da ƙuraje a ƙafafu da wuya",
+      "Ruɓar fatar tsakanin kofato da wari",
+      "Zazzabi, fitsarin jini da rashin ƙarfi"
+    ]
+  },
+  {
+    "id": "camel",
+    "name": "Camel",
+    "hausa_name": "Rakumi",
+    "emoji": "🐪",
+    "commonSymptoms": [
+      "Intermittent fever, wasting & anemia (Surra)",
+      "Thick crusty scabs on skin during rains (Kirchi)",
+      "Chronic watery diarrhea & weight loss",
+      "Edema of belly and sheath",
+      "Abortion in pregnant female camels"
+    ],
+    "commonSymptomsHausa": [
+      "Zazzabi mai dawowa, ramewa da rashin jini (Surra)",
+      "Kwakwancewar fatar jiki a damina (Kirchi)",
+      "Gudawar ciki mai dorewa da ramewa",
+      "Kumburin ƙarƙashin ciki",
+      "Bari ko zubar da ciki ga mata"
+    ]
+  },
+  {
+    "id": "pig",
+    "name": "Pig",
+    "hausa_name": "Alade",
+    "emoji": "🐖",
+    "commonSymptoms": [
+      "High fever & blue-purple blotches on ears & abdomen",
+      "Vomiting, bloody diarrhea & sudden flock mortality",
+      "Blisters on snout, lips & coronary band",
+      "Intense scratching, thick scabs & mange",
+      "Late-term abortion in sows"
+    ],
+    "commonSymptomsHausa": [
+      "Zazzabi mai zafi da canjin launin kunne zuwa shudi",
+      "Amai, gudawar jini da mutuwar aladu da yawa",
+      "Kumburin hanci da kofato",
+      "Ƙaiƙayi mai tsanani da ɓawon fata (Kazuwa)",
+      "Zubar da ciki ga alade mai ciki"
+    ]
+  },
+  {
+    "id": "duck",
+    "name": "Duck",
+    "hausa_name": "Agwagwa",
+    "emoji": "🦆",
+    "commonSymptoms": [
+      "Limp neck resting on ground (Limberneck/Botulism)",
+      "Tremors, wing drooping & greenish diarrhea",
+      "Ducklings suddenly dying lying on side with head thrown back",
+      "Severe eye crusts & swollen sinuses"
+    ],
+    "commonSymptomsHausa": [
+      "Sanyin wuya da kasa ɗaga kai (Limberneck)",
+      "Rawa a jiki da gudawa mai koren launi",
+      "Matasan agwagwa na mutuwa da kai a juye",
+      "Rufe kwayar ido da kura ko ciwo"
+    ]
+  },
+  {
+    "id": "turkey",
+    "name": "Turkey",
+    "hausa_name": "Talo-talo",
+    "emoji": "🦃",
+    "commonSymptoms": [
+      "Sulfur-yellow diarrhea & darkened head (Blackhead)",
+      "Pasty vents, drowsiness & ruffled feathers",
+      "Warty nodules on snood, head & eyelids",
+      "Emaciation despite voracious eating (worms)"
+    ],
+    "commonSymptomsHausa": [
+      "Gudawa mai launin rawaya da duhun kai (Blackhead)",
+      "Dattin bayan kaza, bacci-bacci da tashi gashi",
+      "Kuraje masu tauri a fuska da kewayen ido",
+      "Ramewa mai tsanani duk da yawan cin abinci"
+    ]
+  }
+]

@@ -1,0 +1,50 @@
+name: smartvillage
+description: >-
+  SmartVillage v2.0 — offline-first farm and family health assistant for
+  Northern Nigeria, rewritten in native Flutter with an on-device Hausa voice
+  (Murya ONNX).
+publish_to: "none"
+version: 2.0.0+20
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Bilingual speech: device voice + native Hausa model
+  flutter_tts: ^4.2.0
+  onnxruntime: ^1.4.1
+  audioplayers: ^6.1.0
+
+  # Native integrations
+  geolocator: ^13.0.2
+  camera: ^0.11.0
+  image_picker: ^1.1.2
+  url_launcher: ^6.3.1
+  path_provider: ^2.1.5
+
+  # Offline storage & networking
+  shared_preferences: ^2.3.3
+  http: ^1.2.2
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/models/
+    - assets/images/
+
+  # The Murya Hausa voice ships as two files. Drop them into assets/models/:
+  #   assets/models/murya.onnx       (ONNX graph)
+  #   assets/models/murya.onnx.json  (Piper-style config: phoneme map, sample rate)
+  # Until they are present the app automatically uses the device voice.
