@@ -1,0 +1,12 @@
+Murya — Multi-Speaker Hausa Neural Speech Synthesis
+
+Creator: Adamu Danjuma Abubakar (adab-tech)
+Source model: https://huggingface.co/adab-tech/murya-piper-hausa-tts
+License: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
+License text: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+Underlying dataset attribution (per model card): WAXAL Hausa TTS subset, from Diack, A., Nelson, P., Agbesi, K., et al., “WAXAL: A Large-Scale Multilingual African Language Speech Corpus,” https://huggingface.co/datasets/google/WaxalNLP (CC BY 4.0).
+
+Change made for this preview: model.onnx was converted from the published FP32 ONNX graph using ONNX Runtime dynamic UINT8 weight quantization; Murya's model.onnx.json sidecar is included unchanged. The generated preview WAVs are outputs of this INT8 model.
+
+This adaptation is provided for non-commercial evaluation under the applicable share-alike terms. Commercial use is not covered by the model's license; obtain separate permission from the author before commercial use or distribution.
