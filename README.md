@@ -353,15 +353,23 @@ One-time setup in the Codemagic UI:
 keys: Codemagic's YAML validator rejects empty-string values, and only
 `recipients` / `notify` are valid inside `publishing.email`.
 
-Signing/real-device notes: `minSdk 24`, `targetSdk 34`, `compileSdk 34`,
-JVM 17, Gradle 8.4, AGP 8.3.2.
+Signing/real-device notes: `minSdk 24`, `targetSdk 34`, `compileSdk 36`,
+JVM 17, Gradle 8.14.6, AGP 8.11.1, Kotlin 2.2.20.
+
+Those versions are not arbitrary. `environment.flutter: stable` moves, and
+current Flutter refuses to configure a project below **Gradle 8.14.0**,
+**AGP 8.11.1** or **KGP 2.2.20** (see `DependencyVersionChecker.kt` in the
+Flutter tool). Bumping only Gradle just exposes the AGP error next, so all
+three move together. The 8.14.x line is deliberate: Gradle 9 is past the
+warning threshold and drops APIs AGP 8.x still uses.
 
 ### Pre-flight sanity checklist (verified in this commit)
 
 | Check | Result |
 | --- | --- |
 | `pubspec.yaml` constraints | every dependency uses a caret range (`^x.y.z`); SDK `>=3.4.0 <4.0.0` |
-| `android/app/build.gradle` | `minSdk = 24`, `targetSdk = 34`, `compileSdk = 34`, JVM 17 |
+| `android/app/build.gradle` | `minSdk = 24`, `targetSdk = 34`, `compileSdk = 36`, JVM 17 |
+| Gradle / AGP / KGP | 8.14.6 / 8.11.1 / 2.2.20 — at or above Flutter's error floor |
 | `AndroidManifest.xml` | `INTERNET`, `CAMERA`, `ACCESS_FINE_LOCATION`, `ACCESS_COARSE_LOCATION`, `SEND_SMS`, `WAKE_LOCK`, `<queries>` for sms/smsto/tel/https/TTS |
 | Duplicate native libs | `packagingOptions.jniLibs.pickFirsts` for `libc++_shared.so` / onnxruntime |
 | TTS isolate imports | `dart:isolate`, `dart:typed_data`, `onnxruntime`, `murya_config`, `murya_pcm` all present and used |
