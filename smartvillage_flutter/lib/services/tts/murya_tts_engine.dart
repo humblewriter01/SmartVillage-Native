@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import 'murya_config.dart';
+import 'murya_pcm.dart';
 import 'murya_worker.dart';
 import 'tts_engine.dart';
 
@@ -187,8 +188,28 @@ class MuryaTtsEngine implements TtsEngine {
     }
   }
 
+  /// Speaker the user asked for (may be null before the model is loaded).
+  int? _speakerId;
+
+  /// Speaker id used for synthesis, validated against the loaded model so a
+  /// saved preference from another model build cannot break playback.
+  int? get speakerId {
+    final requested = _speakerId;
+    if (requested == null) return _config.defaultSpeakerId;
+    if (requested < 0 || requested >= _config.numSpeakers) {
+      return _config.defaultSpeakerId;
+    }
+    return requested;
+  }
+
+  /// Selects one of the model's voices (`0-7` for Murya).
+  ///
+  /// Stored even before the graph is loaded; the range is checked when
+  /// synthesising, because `numSpeakers` is only known after the config parse.
+  void setSpeaker(int? id) => _speakerId = id;
+
   /// Synthesises [text] to WAV bytes. Throws when the model is unavailable.
-  Future<Uint8List> synthesize(String text) async {
+  Future<Uint8List> synthesize(String text, {int? speaker}) async {
     await warmUp();
     final port = _commandPort;
     if (port == null) {
@@ -209,7 +230,7 @@ class MuryaTtsEngine implements TtsEngine {
       MuryaSynthesisRequest(
         id: requestId,
         tokenIds: ids,
-        speakerId: _config.defaultSpeakerId,
+        speakerId: speaker ?? this.speakerId,
       ),
     );
 

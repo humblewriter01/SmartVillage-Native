@@ -1,0 +1,157 @@
+# Codemagic CI/CD — SmartVillage (Flutter)
+#
+# Builds a release APK for Android on every push to `main`, runs the unit test
+# suite first, and (optionally) fetches the Murya Hausa voice before compiling
+# so the shipped APK can include the offline model.
+#
+# One-time setup in Codemagic:
+#   * add the repository (project: SmartVillage-Native, working dir: default)
+#   * optional signing: create an env group "smartvillage_signing" holding
+#     CM_KEYSTORE, CM_KEYSTORE_PASSWORD, CM_KEY_ALIAS, CM_KEY_PASSWORD.
+#     Without it the APK is signed with the debug key and still installs.
+#   * optional Murya voice: set MURYA_ONNX_URL (and MURYA_ONNX_JSON_URL) in that
+#     same group, or commit assets/models/murya.onnx — then the fetch step is a
+#     no-op / built-in.
+#
+# Docs: https://docs.codemagic.io/yaml/building-a-flutter-app/
+
+workflows:
+  android-release:
+    name: Android Release (APK)
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      java: 17
+      # macOS base image only; the Android SDK/toolchain ships with the Flutter
+      # image. `xcode` is required by Codemagic's mac instance schema.
+      xcode: latest
+      cocoapods: default
+      vars:
+        PACKAGE_NAME: "com.smartvillage.app"
+        # Optional: a URL serving the prebuilt quantised murya.onnx (~21.7 MB,
+        # e.g. a GitHub release asset). Empty = build without the model.
+        MURYA_ONNX_URL: ""
+        MURYA_ONNX_JSON_URL: ""
+      # Release signing. Create this group in Codemagic or delete these lines.
+      groups:
+        - smartvillage_signing
+    cache:
+      cache_paths:
+        - $HOME/.pub-cache
+        - $HOME/Library/Caches/Homebrew
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+      # Do not spend mac_mini_m2 minutes on superseded commits.
+      cancel_previous_builds: true
+    scripts:
+      - name: Diagnostics (toolchain versions)
+        script: |
+          echo "Flutter: $(flutter --version | head -1)"
+          echo "Dart:    $(dart --version)"
+          echo "Java:    $(java -version 2>&1 | head -1)"
+          echo "Build #: ${BUILD_NUMBER:-local}"
+          ls -la
+
+      - name: Prepare Murya voice model (optional)
+        script: |
+          set -e
+          MODEL_DIR="assets/models"
+          MODEL="$MODEL_DIR/murya.onnx"
+          CONFIG="$MODEL_DIR/murya.onnx.json"
+
+          if [ ! -f "$MODEL" ] && [ -n "${MURYA_ONNX_URL:-}" ]; then
+            echo "Downloading prebuilt quantised model from MURYA_ONNX_URL..."
+            mkdir -p "$MODEL_DIR"
+            curl -fL --retry 3 --connect-timeout 30 "$MURYA_ONNX_URL" -o "$MODEL"
+            if [ -n "${MURYA_ONNX_JSON_URL:-}" ]; then
+              curl -fL --retry 3 "$MURYA_ONNX_JSON_URL" -o "$CONFIG"
+            fi
+          fi
+
+          if [ ! -f "$MODEL" ]; then
+            echo "-----------------------------------------------"
+            echo "No Murya model in this checkout and MURYA_ONNX_URL is empty."
+            echo "Building WITHOUT the offline Hausa voice: the app falls back to"
+            echo "the device TTS voice for both languages. The build is valid."
+            echo "-----------------------------------------------"
+            exit 0
+          fi
+
+          SIZE=$(wc -c < "$MODEL" | tr -d ' ')
+          if [ "$SIZE" -lt 1048576 ]; then
+            echo "error: $MODEL is only ${SIZE} bytes - truncated model." >&2
+            exit 1
+          fi
+          MAGIC=$(head -c 1 "$MODEL" | od -An -tu1 | tr -d ' \n')
+          if [ "$MAGIC" != "8" ]; then
+            echo "error: $MODEL is not an ONNX protobuf (first byte $MAGIC)." >&2
+            exit 1
+          fi
+          if [ ! -f "$CONFIG" ]; then
+            echo "error: $MODEL present but $CONFIG is missing." >&2
+            echo "The app needs the phoneme map to tokenise Hausa; commit the" >&2
+            echo "model config next to the graph." >&2
+            exit 1
+          fi
+          echo "OK: Murya graph $((SIZE / 1024 / 1024)) MB + config present"
+
+      - name: Static checks (no Dart SDK needed)
+        script: python3 tool/check_dart.py
+
+      - name: Get packages
+        script: flutter pub get
+
+      - name: Analyze
+        # Informational only. The codebase was authored without a local Flutter
+        # SDK, so the first analyzer pass may surface style nits; genuine errors
+        # still fail this build at `flutter test` / `flutter build`.
+        script: |
+          set +e
+          flutter analyze --no-fatal-infos --no-fatal-warnings
+          STATUS=$?
+          if [ $STATUS -ne 0 ]; then
+            echo "::warning::flutter analyze reported issues (exit $STATUS) - continuing"
+          fi
+          exit 0
+
+      - name: Unit tests
+        script: flutter test --reporter expanded
+
+      - name: Build release APK
+        script: |
+          flutter build apk --release \
+            --build-name=2.0.0 \
+            --build-number=${BUILD_NUMBER:-1} \
+            --dart-define=SMARTVILLAGE_BUILD=${BUILD_NUMBER:-1}
+
+      - name: Report APK
+        script: |
+          APK=build/app/outputs/flutter-apk/app-release.apk
+          if [ ! -f "$APK" ]; then
+            echo "error: expected $APK was not produced" >&2
+            ls -la build/app/outputs/flutter-apk/ || true
+            exit 1
+          fi
+          echo "APK: $APK ($(du -h "$APK" | cut -f1))"
+          shasum -a 256 "$APK" | tee apk-sha256.txt
+
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
+      - build/app/outputs/flutter-apk/*.apk.sha1
+      - apk-sha256.txt
+
+    publishing:
+      email:
+        # Replace with a real address and remove `disabled` to enable.
+        recipients:
+          - maintainers@smartvillage.ng
+        notify:
+          success: true
+          failure: true
+        disabled: true

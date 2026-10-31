@@ -1,0 +1,7 @@
+# Toolchain for tool/quantize_murya.py (host machine only — never shipped).
+# Verified with: onnx 1.23.x, onnxruntime 1.31.x, numpy 2.4.x
+onnx>=1.16,<2
+onnxruntime>=1.18,<2
+numpy>=1.26
+# Only needed for --mode fp16
+onnxconverter-common>=1.14

@@ -116,6 +116,50 @@ class _VoiceSettingsSheetState extends State<_VoiceSettingsSheet> {
                 if (mounted) setState(() {});
               },
             ),
+            if (tts.muryaReady && tts.availableSpeakers.isNotEmpty) ...<Widget>[
+              const Divider(height: 26),
+              Text(
+                hausa ? 'Muryar Murya (sauti 8)' : 'Murya voice',
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                hausa
+                    ? 'M1 da M2 muryoyin maza ne, F1 zuwa F4 na mata. Zaɓi wanda ya fi so.'
+                    : 'M1–M4 are male, F1–F4 female. Pick the voice farmers find clearest.',
+                style: const TextStyle(
+                  fontSize: 11.5,
+                  color: AppColors.textSecondary,
+                  height: 1.35,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 6,
+                runSpacing: 6,
+                children: tts.availableSpeakers
+                    .map(
+                      (speaker) => ChoiceChip(
+                        label: Text(
+                          speaker.key,
+                          style: const TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        selected: tts.activeSpeaker == speaker.value,
+                        onSelected: (_) async {
+                          await tts.setSpeaker(speaker.value);
+                          if (mounted) setState(() {});
+                        },
+                      ),
+                    )
+                    .toList(),
+              ),
+            ],
             const Divider(height: 26),
             Text(
               hausa ? 'Gwada mai sarrafa rubutu' : 'Text pre-processor preview',

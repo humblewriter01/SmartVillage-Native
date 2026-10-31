@@ -1,0 +1,71 @@
+SMARTVILLAGE — MURYA HAUSA VOICE MODEL
+================================================================================
+MODEL_ATTRIBUTION.txt
+
+Model:        Murya — Multi-Speaker Hausa Neural Speech Synthesis
+Author:       Adamu Danjuma Abubakar (Murya)
+Source:       https://huggingface.co/adab-tech/murya-piper-hausa-tts
+Licence:      CC BY-NC-SA 4.0  (Creative Commons Attribution-NonCommercial-
+              ShareAlike 4.0 International)
+              https://creativecommons.org/licenses/by-nc-sa/4.0/
+Files:        murya.onnx       — Piper/VITS ONNX graph, INT8 quantised for ARM
+              murya.onnx.json  — Piper model config (verbatim upstream copy)
+
+--------------------------------------------------------------------------------
+ATTRIBUTION
+--------------------------------------------------------------------------------
+
+  Murya — Multi-Speaker Offline-Capable Hausa Neural Speech Synthesis
+  © 2026 Adamu Danjuma Abubakar · https://adamu.tech
+
+  Murya is an 8-speaker (4 male, 4 female) Piper/VITS model exported to ONNX for
+  CPU-only, offline inference. Acoustic tuning targets Standard Kano Hausa
+  (Eastern dialect). This application uses the model unmodified apart from
+  ONNX Runtime dynamic INT8 quantisation performed for low-end Android devices;
+  the quantised graph is distributed under the same CC BY-NC-SA 4.0 terms.
+
+  Citation:
+
+    @misc{abubakar2026murya,
+      title  = {Murya: Multi-Speaker Offline-Capable Hausa Neural Speech
+                Synthesis},
+      author = {Abubakar, Adamu Danjuma},
+      year   = {2026},
+      url    = {https://huggingface.co/adab-tech/murya-piper-hausa-tts}
+    }
+
+--------------------------------------------------------------------------------
+TRAINING DATA ATTRIBUTION
+--------------------------------------------------------------------------------
+
+  Fine-tuned on the WAXAL Hausa TTS subset (CC BY 4.0):
+
+    Diack, A., Nelson, P., Agbesi, K., et al.
+    WAXAL: A Large-Scale Multilingual African Language Speech Corpus.
+    arXiv:2602.02734, 2026.
+    https://huggingface.co/datasets/google/WaxalNLP
+
+  WAXAL is used as fine-tuning data only; the model architecture, inference
+  pipeline, tonal handling and deployment stack are original work.
+
+--------------------------------------------------------------------------------
+LICENCE TERMS THAT AFFECT THIS APPLICATION
+--------------------------------------------------------------------------------
+
+  CC BY-NC-SA 4.0 means, in short:
+
+    * Attribution   — the credit above must travel with the model.
+    * NonCommercial — the model may NOT be used for commercial purposes.
+                      Commercial deployment requires a separate licence from
+                      the author (hi@murya.ng).
+    * ShareAlike    — adaptations (including the quantised graph shipped here)
+                      must be released under the same licence.
+
+  The SmartVillage application code is separate from these weights. If you plan
+  to ship SmartVillage commercially, either obtain a commercial Murya licence
+  or remove murya.onnx / murya.onnx.json — the app automatically falls back to
+  the on-device TTS voice when the model is absent.
+
+  The Murya application code (MIT) lives at https://github.com/adab-tech/hausa-ai
+  and is not covered by this file.
+================================================================================
