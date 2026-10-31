@@ -16,7 +16,9 @@ if (hasReleaseKeystore) {
 
 android {
     namespace = "com.smartvillage.app"
-    compileSdk = 34
+    // Flutter 3.4x defaults to compileSdk 36 and the current plugin set
+    // (camera, geolocator, shared_preferences) is built against it.
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
