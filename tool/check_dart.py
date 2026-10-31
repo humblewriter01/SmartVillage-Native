@@ -13,7 +13,7 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SRC = ROOT / "lib"
+SOURCE_DIRS = ("lib", "test")
 
 PAIRS = {")": "(", "]": "[", "}": "{"}
 
@@ -107,7 +107,9 @@ def check_brackets(name: str, code: str) -> list[str]:
 DECL_PATTERNS = (
     r"^(?:abstract |final |sealed |base )?(?:class|enum|typedef|mixin|extension)\s+(\w+)",
     r"^(?:const|final|var)\s+(?:[\w<>,\?\s]+?\s+)?(\w+)\s*=",
-    r"^(?:void|String|int|double|bool|List<[^>]+>|Map<[^>]+>|Future<[^>]+>|"
+    r"^(?:void|String|int|double|bool|Uint8List|Float32List|Float64List|"
+    r"Int32List|Int64List|Set<[^>]+>|Iterable<[^>]+>|"
+    r"List<[^>]+>|Map<[^>]+>|Future<[^>]+>|Stream<[^>]+>|"
     r"DateTime|Widget|Color)\s+(\w+)\s*\(",
 )
 
@@ -145,7 +147,11 @@ def check_imports(files: list[pathlib.Path]) -> list[str]:
 
 def main() -> int:
     problems: list[str] = []
-    files = sorted(SRC.rglob("*.dart"))
+    files = sorted(
+        path
+        for name in SOURCE_DIRS
+        for path in (ROOT / name).rglob("*.dart")
+    )
     for path in files:
         text = path.read_text(encoding="utf-8")
         code = strip_code(text)
@@ -164,7 +170,7 @@ def main() -> int:
         print(f"\n{len(problems)} problem(s) in {len(files)} files")
         return 1
     print(
-        f"OK — {len(files)} Dart files, brackets balanced, "
+        f"OK — {len(files)} Dart files (lib + test), brackets balanced, "
         "imports resolve, no unused relative imports"
     )
     return 0

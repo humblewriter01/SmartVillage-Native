@@ -75,4 +75,84 @@ void main() {
       );
     });
   });
+
+  group('synthesis splitting (keeps every request inside the 2 s budget)', () {
+    String longSentence(int words) =>
+        List<String>.filled(words, 'albasa').join(' ');
+
+    test('short runs are passed through untouched', () {
+      final chunk = TtsChunk(text: 'Fesa maganin a gonar.', language: ChunkLanguage.hausa);
+      final parts = TtsChunker.splitForSynthesis(chunk);
+      expect(parts.length, 1);
+      expect(parts.single.text, chunk.text);
+    });
+
+    test('sentence boundaries are preferred', () {
+      final sentence = '${longSentence(20)}. ';
+      final chunk = TtsChunk(
+        text: List<String>.filled(6, sentence).join(),
+        language: ChunkLanguage.hausa,
+      );
+      final parts = TtsChunker.splitForSynthesis(chunk);
+      expect(parts.length, greaterThan(1));
+      for (final part in parts) {
+        expect(part.text.length, lessThanOrEqualTo(TtsChunker.maxCharsPerRequest));
+        expect(part.isHausa, isTrue);
+        expect(part.text.endsWith('.'), isTrue);
+      }
+    });
+
+    test('clauses are used when one sentence is too long', () {
+      final chunk = TtsChunk(
+        text: '${longSentence(30)}, ${longSentence(30)}, ${longSentence(30)}.',
+        language: ChunkLanguage.hausa,
+      );
+      final parts = TtsChunker.splitForSynthesis(chunk);
+      expect(parts.length, greaterThanOrEqualTo(2));
+      for (final part in parts) {
+        expect(part.text.length, lessThanOrEqualTo(TtsChunker.maxCharsPerRequest));
+      }
+    });
+
+    test('unpunctuated text is word-wrapped, never mid-word', () {
+      final chunk = TtsChunk(
+        text: List<String>.filled(200, 'albasa').join(' '),
+        language: ChunkLanguage.hausa,
+      );
+      final parts = TtsChunker.splitForSynthesis(chunk);
+      expect(parts.length, greaterThan(1));
+      final rebuilt = parts.map((p) => p.text).join(' ');
+      expect(rebuilt.split(' ').where((w) => w.isNotEmpty).length, 200);
+      for (final part in parts) {
+        expect(part.text.length, lessThanOrEqualTo(TtsChunker.maxCharsPerRequest));
+        expect(part.text.startsWith('albasa'), isTrue);
+        expect(part.text.endsWith('albasa'), isTrue);
+      }
+    });
+
+    test('English chunks keep their language tag when split', () {
+      final chunk = TtsChunk(
+        text: List<String>.filled(80, 'emamectin').join(' '),
+        language: ChunkLanguage.english,
+      );
+      final parts = TtsChunker.splitForSynthesis(chunk);
+      expect(parts.every((p) => !p.isHausa), isTrue);
+    });
+
+    test('nothing is lost: the words survive splitting', () {
+      final chunk = TtsChunk(
+        text: '${longSentence(40)}. ${longSentence(40)}.',
+        language: ChunkLanguage.hausa,
+      );
+      final parts = TtsChunker.splitForSynthesis(chunk);
+      final original = chunk.text.split(RegExp(r'[\s.,]+')).where((w) => w.isNotEmpty).length;
+      final produced = parts
+          .map((p) => p.text)
+          .join(' ')
+          .split(RegExp(r'[\s.,]+'))
+          .where((w) => w.isNotEmpty)
+          .length;
+      expect(produced, original);
+    });
+  });
 }

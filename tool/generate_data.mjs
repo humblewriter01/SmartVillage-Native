@@ -1,6 +1,6 @@
 // Code-generates the Dart datasets in lib/data/ from the JSON snapshot of the
 // original React/TypeScript datasets kept in tool/source_data/.
-// Usage:  node tool/generate_data.mjs   (run from the smartvillage_flutter root)
+// Usage:  node tool/generate_data.mjs   (run from the repository root)
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

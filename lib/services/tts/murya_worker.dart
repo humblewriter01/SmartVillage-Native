@@ -3,17 +3,16 @@
 /// Everything ONNX-related lives in this file and runs inside a dedicated
 /// isolate so that:
 /// * the UI thread never blocks while the model runs inference (spec C), and
-/// * the ~60 MB model is loaded exactly once per app session.
+/// * the ~22 MB INT8 model is loaded exactly once per app session.
 library;
 
 import 'dart:isolate';
-import 'dart:math' as math;
 import 'dart:typed_data';
 
-import 'package:flutter/foundation.dart';
 import 'package:onnxruntime/onnxruntime.dart';
 
 import 'murya_config.dart';
+import 'murya_pcm.dart';
 
 /// Message sent from the UI isolate to start the worker.
 class MuryaInitRequest {
@@ -100,7 +99,10 @@ Future<void> muryaIsolateMain(MuryaInitRequest request) async {
   final receivePort = ReceivePort();
   mainSend.send(MuryaWorkerReply(
     type: _kReady,
-    message: 'ready',
+    message: config.isMultiSpeaker
+        ? 'ready (${config.numSpeakers} speakers, default '
+            '${config.defaultSpeakerName})'
+        : 'ready',
     sampleRate: config.sampleRate,
     port: receivePort.sendPort,
   ));
@@ -215,7 +217,7 @@ Uint8List _synthesize({
     if (samples.isEmpty) {
       throw StateError('model returned empty audio');
     }
-    return _float32ToWav(samples, config.sampleRate);
+    return float32ToWav(samples, config.sampleRate);
   } finally {
     for (final input in inputs.values) {
       input.release();
@@ -257,111 +259,4 @@ List<double> _extractFloat32(dynamic value) {
   }
 
   return const <double>[];
-}
-
-/// Minimal 16-bit PCM WAV encoder (no plugin, no native bridge).
-Uint8List _float32ToWav(List<double> samples, int sampleRate) {
-  final byteData = ByteData(44 + samples.length * 2);
-  final dataLength = samples.length * 2;
-
-  void writeString(int offset, String value) {
-    for (var i = 0; i < value.length; i++) {
-      byteData.setUint8(offset + i, value.codeUnitAt(i));
-    }
-  }
-
-  writeString(0, 'RIFF');
-  byteData.setUint32(4, 36 + dataLength, Endian.little);
-  writeString(8, 'WAVE');
-  writeString(12, 'fmt ');
-  byteData.setUint32(16, 16, Endian.little); // PCM chunk size
-  byteData.setUint16(20, 1, Endian.little); // audio format = PCM
-  byteData.setUint16(22, 1, Endian.little); // mono
-  byteData.setUint32(24, sampleRate, Endian.little);
-  byteData.setUint32(28, sampleRate * 2, Endian.little); // byte rate
-  byteData.setUint16(32, 2, Endian.little); // block align
-  byteData.setUint16(34, 16, Endian.little); // bits per sample
-  writeString(36, 'data');
-  byteData.setUint32(40, dataLength, Endian.little);
-
-  var offset = 44;
-  for (final sample in samples) {
-    final clamped = math.max(-1.0, math.min(1.0, sample));
-    byteData.setInt16(
-      offset,
-      (clamped * 32767).round(),
-      Endian.little,
-    );
-    offset += 2;
-  }
-
-  return byteData.buffer.asUint8List();
-}
-
-/// Simple grapheme-level tokenizer used when the model does not ship a phoneme
-/// table. Exposed for tests.
-@visibleForTesting
-List<int> debugTokenize(String text, MuryaConfig config) =>
-    buildTokenIds(text, config);
-
-/// Converts Hausa text into the token ids the ONNX graph expects.
-List<int> buildTokenIds(String text, MuryaConfig config) {
-  final ids = <int>[];
-
-  if (config.phonemeIdMap.isNotEmpty) {
-    final lookup = config.phonemeIdMap.map(
-      (key, value) => MapEntry(key.toLowerCase(), value),
-    );
-
-    void add(String phoneme) {
-      final row = lookup[phoneme] ?? lookup[phoneme.toLowerCase()];
-      if (row == null || row.isEmpty) return;
-      ids.addAll(row);
-      // Piper intersperses the pad token between phonemes.
-      if (phoneme.trim().isNotEmpty) ids.add(MuryaConfig.padId);
-    }
-
-    for (final rune in text.toLowerCase().runes) {
-      final char = String.fromCharCode(rune);
-      if (char.trim().isEmpty) {
-        add(' ');
-        continue;
-      }
-      add(char);
-      // Handle digraphs written with an apostrophe/glottal mark.
-      if (char == '\'') add('ˈ');
-    }
-    return ids.isEmpty ? _charLevel(text, config) : ids;
-  }
-
-  return _charLevel(text, config);
-}
-
-List<int> _charLevel(String text, MuryaConfig config) {
-  if (config.characters.isEmpty) {
-    // Deterministic fallback alphabet: stable across sessions so the model
-    // receives consistent ids even without metadata.
-    const fallback =
-        " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?;:'-"
-        "ɓɗƙƴƁƊƘƳ";
-    final index = <String, int>{};
-    for (var i = 0; i < fallback.length; i++) {
-      index[fallback[i]] = i + 1;
-    }
-    return text
-        .split('')
-        .map((c) => index[c] ?? index[' '] ?? 0)
-        .where((id) => id > 0)
-        .toList(growable: false);
-  }
-
-  final index = <String, int>{};
-  for (var i = 0; i < config.characters.length; i++) {
-    index[config.characters[i]] = i;
-  }
-  return text
-      .split('')
-      .map((c) => index[c])
-      .whereType<int>()
-      .toList(growable: false);
 }

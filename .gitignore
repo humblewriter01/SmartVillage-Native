@@ -24,10 +24,21 @@ android/app/.cxx/
 *.jks
 *.keystore
 
-# The Murya voice is large and licence-bound: keep it out of git and drop the
-# two files into assets/models/ on each machine that needs it.
-assets/models/*.onnx
-assets/models/*.onnx.json
+# The finished Murya assets ARE committed (assets/models/murya.onnx[.json]) so
+# Codemagic can build a self-contained APK. Only the scratch downloads and
+# intermediate exports stay out of git.
+/model.onnx
+/model.onnx.json
+/*.pth
+/*.ckpt
+*.onnx.tmp
+*.onnx.tmp_data
+tool/.quantize-cache/
+.murya-venv/
+
+# Python tooling bytecode
+__pycache__/
+*.py[cod]
 
 # OS / editor noise
 .DS_Store

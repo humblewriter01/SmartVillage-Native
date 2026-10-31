@@ -4,6 +4,16 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+// Release signing: Codemagic injects a keystore via CM_KEYSTORE* env vars and
+// writes android/key.properties. Without it the build still succeeds and falls
+// back to the debug key so a sideloadable APK is always produced.
+def keystorePropertiesFile = rootProject.file("key.properties")
+def keystoreProperties = new Properties()
+def hasReleaseKeystore = keystorePropertiesFile.exists()
+if (hasReleaseKeystore) {
+    keystorePropertiesFile.withInputStream { keystoreProperties.load(it) }
+}
+
 android {
     namespace = "com.smartvillage.app"
     compileSdk = 34
@@ -20,19 +30,49 @@ android {
 
     defaultConfig {
         applicationId = "com.smartvillage.app"
-        // ONNX Runtime, camera and geolocator all require API 21+; 23 avoids
-        // the legacy permission shims on Android 5 devices.
-        minSdk = 23
+        // 24 is the floor for the current geolocator/flutter_tts plugins and
+        // gives us the modern permission model (no legacy shims) on the cheap
+        // Android 7+ handsets this app targets.
+        minSdk = 24
         targetSdk = 34
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         multiDexEnabled = true
     }
 
+    signingConfigs {
+        if (hasReleaseKeystore) {
+            release {
+                storeFile = file(keystoreProperties["storeFile"])
+                storePassword = keystoreProperties["storePassword"]
+                keyAlias = keystoreProperties["keyAlias"]
+                keyPassword = keystoreProperties["keyPassword"]
+            }
+        }
+    }
+
+    // onnxruntime and the audio/camera plugins each ship libc++_shared.so.
+    // AGP 8 refuses the duplicate unless we pick one.
+    packagingOptions {
+        jniLibs {
+            pickFirsts.addAll([
+                "**/libc++_shared.so",
+                "**/libonnxruntime.so",
+                "**/libonnxruntime4j_jni.so"
+            ])
+            useLegacyPackaging = true
+        }
+        resources {
+            excludes.addAll(["META-INF/AL2.0", "META-INF/LGPL2.1"])
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: replace with a real signing config before Play Store upload.
-            signingConfig = signingConfigs.debug
+            // Real keystore when Codemagic (or a local key.properties) provides
+            // one; otherwise the debug key so `flutter build apk --release`
+            // still yields an installable APK.
+            signingConfig = hasReleaseKeystore ? signingConfigs.release : signingConfigs.debug
             minifyEnabled = false
             shrinkResources = false
             proguardFiles(

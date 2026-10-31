@@ -52,7 +52,15 @@ class HybridTtsService extends ChangeNotifier {
   /// Generation budget before falling back to the device voice.
   final Duration muryaBudget;
 
+  /// Longest Hausa run handed to Murya in one call (see
+  /// [TtsChunker.maxCharsPerRequest]).
+  static const int maxCharsPerRequest = TtsChunker.maxCharsPerRequest;
+
+  static const String _modeKey = 'smartvillage.voice_mode';
+  static const String _speakerKey = 'smartvillage.murya_speaker';
+
   VoiceMode _mode = VoiceMode.natural;
+  int? _speakerOverride;
   bool _isSpeaking = false;
   bool _muryaUsable = true;
   bool _warmStarted = false;
@@ -66,13 +74,26 @@ class HybridTtsService extends ChangeNotifier {
   VoiceRoute get lastRoute => _lastRoute;
   String? get statusMessage => _statusMessage;
 
+  /// Speaker id chosen by the user (Murya ships 8 voices).
+  int? get speakerOverride => _speakerOverride;
+
+  /// The voice that will actually be used once the model is loaded.
+  int? get activeSpeaker => murya.speakerId;
+
+  /// Voice names available once the model is warm (`M1`, `F2`, …).
+  List<MapEntry<String, int>> get availableSpeakers => murya.config.speakers;
+
+  String get activeSpeakerName => murya.config.defaultSpeakerName;
+
   /// True when the native model assets are present and the isolate is up.
   bool get muryaReady => murya.isReady;
 
   Future<void> loadPreferences() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      _mode = VoiceMode.fromStorage(prefs.getString('smartvillage.voice_mode'));
+      _mode = VoiceMode.fromStorage(prefs.getString(_modeKey));
+      _speakerOverride = prefs.getInt(_speakerKey);
+      murya.setSpeaker(_speakerOverride);
       notifyListeners();
     } catch (error) {
       debugPrint('[HybridTts] prefs load failed: $error');
@@ -85,9 +106,26 @@ class HybridTtsService extends ChangeNotifier {
     notifyListeners();
     try {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('smartvillage.voice_mode', mode.storageValue);
+      await prefs.setString(_modeKey, mode.storageValue);
     } catch (error) {
       debugPrint('[HybridTts] prefs save failed: $error');
+    }
+  }
+
+  /// Selects one of Murya's eight voices. Persisted for the next launch.
+  Future<void> setSpeaker(int? id) async {
+    _speakerOverride = id;
+    murya.setSpeaker(id);
+    notifyListeners();
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      if (id == null) {
+        await prefs.remove(_speakerKey);
+      } else {
+        await prefs.setInt(_speakerKey, id);
+      }
+    } catch (error) {
+      debugPrint('[HybridTts] speaker save failed: $error');
     }
   }
 
@@ -98,7 +136,11 @@ class HybridTtsService extends ChangeNotifier {
     _warmStarted = true;
     try {
       await murya.warmUp();
-      _statusMessage = 'Murya ready';
+      murya.setSpeaker(_speakerOverride);
+      _statusMessage = murya.config.isMultiSpeaker
+          ? 'Murya ready (${murya.config.numSpeakers} voices, '
+              '${murya.config.defaultSpeakerName})'
+          : 'Murya ready';
     } catch (error) {
       _muryaUsable = false;
       _statusMessage = '$error';
@@ -159,12 +201,23 @@ class HybridTtsService extends ChangeNotifier {
       return;
     }
 
+    // Long runs are split into sentence-sized pieces so one slow synthesis
+    // cannot burn the whole budget on a weak device.
+    final parts = <TtsChunk>[];
+    for (final chunk in chunks) {
+      if (chunk.isHausa) {
+        parts.addAll(TtsChunker.splitForSynthesis(chunk));
+      } else {
+        parts.add(chunk);
+      }
+    }
+
     var usedMurya = false;
     var usedSystem = false;
 
-    for (var i = 0; i < chunks.length; i++) {
+    for (var i = 0; i < parts.length; i++) {
       if (generation != _generation) return; // superseded by a newer request
-      final chunk = chunks[i];
+      final chunk = parts[i];
 
       final mustUseSystem = !chunk.isHausa || !_muryaUsable;
       if (mustUseSystem) {
@@ -191,7 +244,7 @@ class HybridTtsService extends ChangeNotifier {
         debugPrint('[HybridTts] falling back: $error');
 
         // Rule B.3 — hand the ENTIRE remaining text to the device voice.
-        final remaining = chunks
+        final remaining = parts
             .sublist(i)
             .map((c) => c.text)
             .join(' ')
