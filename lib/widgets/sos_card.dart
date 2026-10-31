@@ -455,7 +455,7 @@ class _SosCardState extends State<SosCard> {
                       ),
                       const SizedBox(width: 4),
                       SpeakButton(
-                        textBuilder: _smsBody,
+                        textBuilder: () => _smsBody,
                         color: Colors.white,
                         background: const Color(0x33FFFFFF),
                       ),

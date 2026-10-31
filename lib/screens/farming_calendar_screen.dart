@@ -250,9 +250,14 @@ class _RecommendationTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.faint(color, 0.3)),
-        borderDirectional: BorderDirectional(
+        // `BoxDecoration` has a single `border` slot. `BorderDirectional` is a
+        // `BoxBorder`, so it goes there and keeps the "thick leading edge,
+        // hairline elsewhere" look without a second decoration.
+        border: BorderDirectional(
           start: BorderSide(color: color, width: 3.5),
+          top: BorderSide(color: AppColors.faint(color, 0.3)),
+          end: BorderSide(color: AppColors.faint(color, 0.3)),
+          bottom: BorderSide(color: AppColors.faint(color, 0.3)),
         ),
       ),
       child: Column(

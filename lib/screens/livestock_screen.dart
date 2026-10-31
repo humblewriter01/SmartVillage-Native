@@ -266,8 +266,10 @@ class _LivestockResult extends StatelessWidget {
             compact: true,
             color: AppColors.livestock,
             textBuilder: () =>
-                '${disease.displayName(hausa)}. ${disease.localizedSymptoms(hausa)} '
-                '${disease.localizedTreatment(hausa)} ${disease.localizedPrevention(hausa)}',
+                '${disease.displayName(hausa)}. '
+                '${disease.localizedSymptoms(result.animal, hausa)} '
+                '${disease.localizedTreatment(hausa)} '
+                '${disease.localizedPrevention(hausa)}',
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -335,7 +337,7 @@ class _LivestockResult extends StatelessWidget {
               ),
               InfoRow(
                 label: state.t('symptoms'),
-                value: disease.localizedSymptoms(hausa),
+                value: disease.localizedSymptoms(result.animal, hausa),
               ),
               InfoRow(
                 label: state.t('treatment'),

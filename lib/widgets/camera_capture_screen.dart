@@ -184,7 +184,9 @@ class _CameraCaptureScreenState extends State<CameraCaptureScreen> {
                       final controller = _controller;
                       if (controller == null) return;
                       try {
-                        final current = await controller.getFlashMode();
+                        // `CameraController` has no `getFlashMode()`; the
+                        // controller tracks the current mode on its value.
+                        final current = controller.value.flashMode;
                         await controller.setFlashMode(
                           current == FlashMode.torch
                               ? FlashMode.off

@@ -329,3 +329,64 @@ def scan_literal_duplicates(text: str) -> list[tuple[int, str]]:
                  + (" …" if len(duplicates) > 8 else ""))
             )
     return problems
+
+
+# --------------------------------------------------------------------------
+# Masking: comments and string literals blanked, offsets preserved
+# --------------------------------------------------------------------------
+
+def mask_non_code(text: str) -> str:
+    """Return *text* with comments and string literals replaced by spaces.
+
+    Offsets and newlines are preserved, so a match position in the masked text
+    maps straight back to a line number in the original. Used to find identifier
+    references without being fooled by prose in comments or doc strings.
+    """
+    out = list(text)
+    length = len(text)
+    index = 0
+    while index < length:
+        char = text[index]
+        if text.startswith("//", index):
+            end = text.find("\n", index)
+            end = length if end < 0 else end
+            for i in range(index, end):
+                out[i] = " "
+            index = end
+            continue
+        if text.startswith("/*", index):
+            end = text.find("*/", index + 2)
+            end = length if end < 0 else end + 2
+            for i in range(index, end):
+                if out[i] != "\n":
+                    out[i] = " "
+            index = end
+            continue
+        triple = text.startswith("'''", index) or text.startswith('"""', index)
+        raw = (not triple and char in "rR" and index + 1 < length
+               and text[index + 1] in "'\"")
+        if triple or raw or char in "'\"":
+            if triple:
+                quote = text[index:index + 3]
+                start = index
+                end = text.find(quote, index + 3)
+                end = length if end < 0 else end + 3
+            else:
+                quote = "'" if raw else char
+                start = index
+                end = index + (1 if not raw else 2)
+                while end < length:
+                    if text[end] == "\\":
+                        end += 2
+                        continue
+                    if text[end] == quote or text[end] == "\n":
+                        end += 1
+                        break
+                    end += 1
+            for i in range(start, min(end, length)):
+                if out[i] != "\n":
+                    out[i] = " "
+            index = end
+            continue
+        index += 1
+    return "".join(out)

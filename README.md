@@ -268,13 +268,21 @@ generator only reads this snapshot.
 | `test/reminder_service_test.dart` | Reminder ids, harvest pair scheduling, due/upcoming, prune, JSON round-trip |
 | `test/murya_tokenizer_test.dart` | Piper BOS/PAD/EOS layout, hooked letters, config parsing against the committed `murya.onnx.json`, WAV header/clamping |
 
-`tool/check_dart.py` is a dependency-free sanity check (comment/string-aware
-bracket balance, relative-import resolution, unused relative imports) for
-environments without the Dart SDK:
+`tool/check_dart.py` is a dependency-free sanity check for environments without
+the Dart SDK. It covers comment/string-aware bracket balance, relative-import
+resolution and unused imports, string literals that terminate early (Hausa
+apostrophes), duplicate elements in `const` sets/maps, and `Icons.<name>`
+references against `tool/flutter_icons.txt`:
 
 ```bash
-python3 tool/check_dart.py    # lib/ and test/
+python3 tool/check_dart.py         # lib/ and test/
+python3 tool/test_dart_lint.py     # self-tests for the checks above
+python3 tool/refresh_icons.py      # refresh the icon list after a Flutter bump
 ```
+
+Each of these maps to a build that actually failed: an unescaped `sa'o'i`, a
+duplicated `hausaLexicon` entry, and `Icons.boil`. They cost a second locally
+and ten minutes on CI, which is why they are checked here.
 
 ---
 
@@ -374,4 +382,4 @@ warning threshold and drops APIs AGP 8.x still uses.
 | Duplicate native libs | `packagingOptions.jniLibs.pickFirsts` for `libc++_shared.so` / onnxruntime |
 | TTS isolate imports | `dart:isolate`, `dart:typed_data`, `onnxruntime`, `murya_config`, `murya_pcm` all present and used |
 | Asset registration | `flutter: assets: - assets/models/`, `- assets/images/` |
-| Structural check | `python3 tool/check_dart.py` → 76 Dart files (lib + test) clean |
+| Structural check | `python3 tool/check_dart.py` → 77 Dart files (lib + test) clean |

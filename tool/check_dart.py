@@ -9,7 +9,9 @@ be validated in environments where the Dart SDK is unavailable. It checks:
 * string literals that terminate early (an unescaped Hausa apostrophe such as
   `sa'o'i`), are unterminated, or use an invalid escape,
 * duplicate elements in `Set<...>{...}` literals and duplicate string keys in
-  map literals.
+  map literals,
+* `Icons.<name>` references that do not exist in the framework (see
+  `tool/flutter_icons.txt`).
 
 The last two are hard compile errors and are the ones that broke the first
 `flutter build apk`, so they are checked explicitly: see `dart_lint.py`.
@@ -20,12 +22,26 @@ import pathlib
 import re
 import sys
 
-from dart_lint import scan_literal_duplicates, scan_string_literals
+from dart_lint import (
+    mask_non_code,
+    scan_literal_duplicates,
+    scan_string_literals,
+)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SOURCE_DIRS = ("lib", "test")
 
 PAIRS = {")": "(", "]": "[", "}": "{"}
+
+ICON_LIST = pathlib.Path(__file__).with_name("flutter_icons.txt")
+
+
+def _rel(path: pathlib.Path) -> pathlib.Path:
+    """Path relative to the repo root, but tolerant of temp dirs in tests."""
+    try:
+        return path.relative_to(ROOT)
+    except ValueError:
+        return path
 
 
 def strip_code(text: str) -> str:
@@ -168,6 +184,33 @@ def check_literals(files: list[pathlib.Path]) -> list[str]:
     return problems
 
 
+def check_icons(files: list[pathlib.Path]) -> list[str]:
+    """Every `Icons.<name>` must exist in `tool/flutter_icons.txt`.
+
+    `Icons.boil` compiled fine as an *identifier* and only failed at
+    `flutter build apk` (the field simply does not exist), so this is checked
+    here rather than discovered ten minutes into a CI run.
+    """
+    if not ICON_LIST.exists():
+        return []
+    known = {
+        line.strip()
+        for line in ICON_LIST.read_text(encoding="utf-8").splitlines()
+        if line.strip() and not line.startswith("#")
+    }
+    if not known:
+        return []
+    problems: list[str] = []
+    for path in files:
+        masked = mask_non_code(path.read_text(encoding="utf-8"))
+        for match in re.finditer(r"\bIcons\.([A-Za-z0-9_]+)", masked):
+            name = match.group(1)
+            if name not in known:
+                line = masked.count("\n", 0, match.start()) + 1
+                problems.append(f"{_rel(path)}:{line}: Icons.{name} does not exist")
+    return problems
+
+
 def main() -> int:
     problems: list[str] = []
     files = sorted(
@@ -188,6 +231,7 @@ def main() -> int:
 
     problems.extend(check_imports(files))
     problems.extend(check_literals(files))
+    problems.extend(check_icons(files))
 
     if problems:
         print("\n".join(problems))
@@ -195,7 +239,8 @@ def main() -> int:
         return 1
     print(
         f"OK — {len(files)} Dart files (lib + test): brackets balanced, "
-        "imports resolve, strings well-formed, no duplicate literal entries"
+        "imports resolve, strings well-formed, no duplicate literal entries, "
+        "all Icons.* names exist"
     )
     return 0
 

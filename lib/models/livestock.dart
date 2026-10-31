@@ -82,6 +82,20 @@ class AnimalDisease {
   String localizedCauses(bool hausa) => hausa ? causesHausa : causes;
   String localizedTreatment(bool hausa) => hausa ? treatmentHausa : treatment;
   String localizedPrevention(bool hausa) => hausa ? preventionHausa : prevention;
+
+  /// The disease's symptoms as one readable line.
+  ///
+  /// Unlike crops and health conditions there is no `symptomsHausa` string:
+  /// the source dataset never translated disease symptoms separately. Every
+  /// entry of [keySymptoms] is one of [animal]'s [Animal.commonSymptoms], which
+  /// *are* bilingual, so Hausa is resolved by position through
+  /// [Animal.symptomLabel] instead of inventing translations.
+  String localizedSymptoms(Animal animal, bool hausa) => keySymptoms
+      .map((String symptom) {
+        final int index = animal.commonSymptoms.indexOf(symptom);
+        return index < 0 ? symptom : animal.symptomLabel(index, hausa);
+      })
+      .join(', ');
 }
 
 enum MatchStrength { strong, moderate, weak }
